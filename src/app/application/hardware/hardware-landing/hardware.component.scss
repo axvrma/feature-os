@@ -1,0 +1,14 @@
+.phone {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  gap: 20px;
+  background-color: #f4f4f4;
+}
+
+mat-card {
+  border-radius: 1rem;
+  overflow: hidden;
+}

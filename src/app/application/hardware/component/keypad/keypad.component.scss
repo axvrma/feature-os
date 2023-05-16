@@ -1,0 +1,21 @@
+:host {
+  display: flex;
+}
+
+div {
+  display: flex;
+  flex-direction: column;
+}
+
+.d-pad {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.vertical-height {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

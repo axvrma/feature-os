@@ -1,0 +1,28 @@
+$height: 20px;
+
+:host {
+  width: 100%;
+  height: $height;
+  display: flex;
+  justify-content: flex-end;
+  background-color: black;
+  color: white;
+  align-items: center;
+  padding: 4px 0 4px 0;
+}
+
+div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+p {
+  margin: 0;
+  margin-right: 4px;
+}
+
+mat-icon {
+  font-size: 16px;
+  height: 16px;
+}

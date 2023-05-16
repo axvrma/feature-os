@@ -1,0 +1,12 @@
+$width: 240px;
+$height: 320px;
+
+:host {
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.screen_size {
+  width: $width;
+  height: $height;
+}
