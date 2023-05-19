@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { KeypadListenerService } from '../../service';
+import { KeypadListenerService } from '../../../kernel/service';
 import { Keypad } from '../../enum';
 
 @Component({

@@ -5,14 +5,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { MaterialModule } from '../module';
 import { HardwareModule } from './hardware';
 import { SoftwareModule } from './software';
+import { KernelModule } from './kernel';
 
 const routes: Routes = [
   {
-    path: 'app',
+    path: '',
     component: ApplicationComponent,
     children: [
       {
-        path: 'sw',
+        path: 'base',
         loadChildren: () => import('./software').then(_ => _.SoftwareModule)
       }
     ]
@@ -25,7 +26,8 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     MaterialModule,
     HardwareModule,
-    SoftwareModule
+    KernelModule,
+    SoftwareModule,
   ],
   declarations: [ApplicationComponent]
 })

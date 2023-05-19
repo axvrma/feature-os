@@ -1,14 +1,14 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { DrawerModel } from './drawer.model';
+import { Component, OnInit } from '@angular/core';
 import { CONFIGURATION } from 'src/app/application/config';
 import { Keypad, KeypadListenerService } from 'src/app/application/hardware';
+import { DrawerModel } from './drawer.model';
 
 @Component({
   selector: 'app-drawer',
   templateUrl: './drawer.component.html',
   styleUrls: ['./drawer.component.scss']
 })
-export class DrawerComponent implements OnInit, OnDestroy {
+export class DrawerComponent implements OnInit {
 
   drawer: DrawerModel[] = CONFIGURATION.drawer;
 
@@ -20,12 +20,7 @@ export class DrawerComponent implements OnInit, OnDestroy {
     this.listenKeypad();
   }
 
-  ngOnDestroy(): void {
-    this.keypadListener.destroy();
-  }
-
   listenKeypad() {
-    this.keypadListener.init();
     this.keypadListener.getAction().subscribe((res: any) => {
       this.onKeyAction(res);
     });

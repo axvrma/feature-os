@@ -16,19 +16,20 @@ export class BaseComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.listenKeypad();
   }
 
   listenKeypad() {
-    this.keypadListener.init();
     this.keypadListener.getAction().subscribe((res: Keypad) => {
-      this.keypadAction(res);
+      console.log(res);
+      // this.keypadAction(res);
     });
   }
 
   keypadAction(action: Keypad) {
     switch (action) {
       case Keypad.CALL_DISCONNECT: {
-        this.router.navigateByUrl(BaseRoute.HOME);
+        // this.router.navigateByUrl(BaseRoute.HOME);
       }
     }
   }

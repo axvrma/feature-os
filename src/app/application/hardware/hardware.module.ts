@@ -3,15 +3,15 @@ import { CommonModule } from '@angular/common';
 import { HardwareComponent } from './hardware-landing';
 import { MaterialModule } from 'src/app/module';
 import { ScreenComponent, KeypadComponent } from './component';
-import { KeypadListenerService } from './service';
+import { KernelModule } from '../kernel';
 
 @NgModule({
   imports: [
     CommonModule,
-    MaterialModule
+    MaterialModule,
+    KernelModule
   ],
   declarations: [HardwareComponent, ScreenComponent, KeypadComponent],
   exports: [HardwareComponent],
-  providers: [KeypadListenerService]
 })
 export class HardwareModule { }

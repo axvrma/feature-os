@@ -3,18 +3,16 @@ import { CommonModule } from '@angular/common';
 import { BaseComponent } from './base';
 import { PlayAreaComponent, StatusBarComponent } from './base';
 import { MaterialModule } from 'src/app/module';
-import { LauncherModule } from './apps';
 import { RouterModule, Routes } from '@angular/router';
-import { SoftwareComponent } from './software-landing';
 
 const routes: Routes = [
   {
-    path: 'base',
+    path: 'app',
     component: BaseComponent,
     children: [
       {
         path: 'launcher',
-        loadChildren: () => import('./apps/launcher').then(_ => _.LauncherModule)
+        loadChildren: () => import('./apps').then(_ => _.LauncherModule)
       }
     ]
   }
@@ -24,10 +22,12 @@ const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    MaterialModule,
-    LauncherModule
+    MaterialModule
   ],
-  declarations: [SoftwareComponent, BaseComponent, StatusBarComponent, PlayAreaComponent],
-  exports: [SoftwareComponent]
+  declarations: [BaseComponent,
+    StatusBarComponent,
+    PlayAreaComponent
+  ],
+  exports: [BaseComponent]
 })
 export class SoftwareModule { }
