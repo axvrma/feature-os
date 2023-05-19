@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Keypad, KeypadListenerService } from 'src/app/application/hardware';
 import { BaseRoute } from '../base.route';
 import { Router } from '@angular/router';
+import { EventService, SubscriptionService } from '../service';
 
 @Component({
   selector: 'app-base',
@@ -12,6 +13,8 @@ export class BaseComponent implements OnInit {
 
   constructor (
     private keypadListener: KeypadListenerService,
+    private eventService: EventService,
+    private subs: SubscriptionService,
     private router: Router
   ) { }
 
@@ -20,16 +23,20 @@ export class BaseComponent implements OnInit {
   }
 
   listenKeypad() {
-    this.keypadListener.getAction().subscribe((res: Keypad) => {
-      console.log(res);
-      // this.keypadAction(res);
-    });
+    this.subs.add(
+      this.keypadListener.getAction().subscribe((res: Keypad) => {
+        this.keypadAction(res);
+      }));
   }
 
   keypadAction(action: Keypad) {
     switch (action) {
       case Keypad.CALL_DISCONNECT: {
-        // this.router.navigateByUrl(BaseRoute.HOME);
+        this.router.navigateByUrl(BaseRoute.HOME);
+        break;
+      }
+      default: {
+        this.eventService.newEvent(action);
       }
     }
   }

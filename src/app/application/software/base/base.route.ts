@@ -1,3 +1,3 @@
 export const BaseRoute = {
-  HOME: '/app/sw/base'
+  HOME: '/base/app/launcher/home'
 }

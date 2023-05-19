@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BaseComponent } from './base';
-import { PlayAreaComponent, StatusBarComponent } from './base';
+import { BaseComponent, SubscriptionService } from './base';
+import { PlayAreaComponent, StatusBarComponent, EventService } from './base';
 import { MaterialModule } from 'src/app/module';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -13,6 +13,10 @@ const routes: Routes = [
       {
         path: 'launcher',
         loadChildren: () => import('./apps').then(_ => _.LauncherModule)
+      },
+      {
+        path: 'phone',
+        loadChildren: () => import('./apps').then(_ => _.PhoneModule)
       }
     ]
   }
@@ -24,10 +28,15 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     MaterialModule
   ],
-  declarations: [BaseComponent,
+  declarations: [
+    BaseComponent,
     StatusBarComponent,
-    PlayAreaComponent
+    PlayAreaComponent,
   ],
-  exports: [BaseComponent]
+  exports: [BaseComponent],
+  providers: [
+    EventService,
+    SubscriptionService
+  ]
 })
 export class SoftwareModule { }

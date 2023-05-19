@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Keypad, KeypadListenerService } from 'src/app/application/hardware';
+import { Router } from '@angular/router';
+import { Keypad } from 'src/app/application/hardware';
+import { EventService, SubscriptionService } from 'src/app/application/software/base';
+import { ROUTE_LAUNCHER } from '../../constant';
 
 @Component({
   selector: 'app-home',
@@ -9,25 +12,26 @@ import { Keypad, KeypadListenerService } from 'src/app/application/hardware';
 export class HomeComponent implements OnInit {
 
   constructor (
-    private keypadListener: KeypadListenerService
+    private eventService: EventService,
+    private subs: SubscriptionService,
+    private router: Router
   ) { }
 
   ngOnInit() {
+    this.listenKeypad();
   }
 
   listenKeypad() {
-    this.keypadListener.getAction().subscribe((res: any) => {
-      console.log(res);
-      this.onKeyAction(res);
-    })
+    this.subs.add(
+      this.eventService.getEvent().subscribe((res: any) => {
+        this.onKeyAction(res);
+      }));
   }
 
   onKeyAction(action: Keypad) {
     switch (action) {
       case Keypad.D_PAD_CENTER: {
-        // if (!this.isAppDrawerOpen()) {
-        //   this.appDrawer = true;
-        // }
+        this.router.navigateByUrl(ROUTE_LAUNCHER.DRAWER);
         break;
       }
       case Keypad.ACTION_LEFT: {
@@ -36,12 +40,6 @@ export class HomeComponent implements OnInit {
       }
       case Keypad.ACTION_RIGHT: {
         console.log(action);
-        break;
-      }
-      case Keypad.CALL_DISCONNECT: {
-        // if (this.isAppDrawerOpen()) {
-        //   this.appDrawer = false;
-        // }
         break;
       }
     }

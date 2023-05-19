@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { LauncherComponent } from './landing-launcher';
 import { MaterialModule } from 'src/app/module';
 import { ActionBarComponent, DateTimeWidgetComponent } from './component';
-import { HardwareModule } from 'src/app/application/hardware';
 import { HomeComponent, DrawerComponent } from './screen';
 import { RouterModule, Routes } from '@angular/router';
+import { SoftwareModule } from '../../software.module';
 
 const routes: Routes = [
   {
@@ -28,8 +28,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    MaterialModule,
-    HardwareModule
+    MaterialModule
   ],
   declarations: [LauncherComponent, DateTimeWidgetComponent, HomeComponent, DrawerComponent, ActionBarComponent],
   exports: [LauncherComponent]

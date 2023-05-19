@@ -1,5 +1,6 @@
 export interface DrawerModel {
   name: string,
   icon: string,
-  active: boolean
+  active: boolean,
+  route: string
 }

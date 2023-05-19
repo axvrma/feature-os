@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CONFIGURATION } from 'src/app/application/config';
 import { Keypad, KeypadListenerService } from 'src/app/application/hardware';
 import { DrawerModel } from './drawer.model';
+import { EventService, SubscriptionService } from 'src/app/application/software/base';
+import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-drawer',
@@ -13,7 +16,9 @@ export class DrawerComponent implements OnInit {
   drawer: DrawerModel[] = CONFIGURATION.drawer;
 
   constructor (
-    private keypadListener: KeypadListenerService
+    private eventService: EventService,
+    private subs: SubscriptionService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -21,15 +26,18 @@ export class DrawerComponent implements OnInit {
   }
 
   listenKeypad() {
-    this.keypadListener.getAction().subscribe((res: any) => {
-      this.onKeyAction(res);
-    });
+    this.subs.add(
+      this.eventService.getEvent().subscribe((res: any) => {
+        this.onKeyAction(res);
+      })
+    );
   }
 
   onKeyAction(action: Keypad) {
-    console.log(action);
     switch (action) {
       case Keypad.D_PAD_CENTER: {
+        const index = this.drawer.findIndex(app => app.active);
+        this.router.navigateByUrl(this.drawer[index].route);
         break;
       }
       case Keypad.D_PAD_UP: {

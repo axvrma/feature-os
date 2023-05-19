@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ApplicationComponent } from './landing-application';
+import { ApplicationComponent } from './application-landing';
 import { RouterModule, Routes } from '@angular/router';
 import { MaterialModule } from '../module';
 import { HardwareModule } from './hardware';
