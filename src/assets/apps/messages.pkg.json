@@ -1,0 +1,5 @@
+{
+  "icon": "sms",
+  "title": "Messages",
+  "route": "/messages"
+}

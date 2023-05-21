@@ -1,0 +1,5 @@
+{
+  "icon": "today",
+  "title": "Calendar",
+  "route": "/calendar"
+}

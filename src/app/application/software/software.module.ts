@@ -1,42 +1,25 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BaseComponent, SubscriptionService } from './base';
-import { PlayAreaComponent, StatusBarComponent, EventService } from './base';
 import { MaterialModule } from 'src/app/module';
-import { RouterModule, Routes } from '@angular/router';
-
-const routes: Routes = [
-  {
-    path: 'app',
-    component: BaseComponent,
-    children: [
-      {
-        path: 'launcher',
-        loadChildren: () => import('./apps').then(_ => _.LauncherModule)
-      },
-      {
-        path: 'phone',
-        loadChildren: () => import('./apps').then(_ => _.PhoneModule)
-      }
-    ]
-  }
-]
+import { SdkModule } from '../sdk';
+import { BaseComponent } from './base-landing';
+import { PlayAreaComponent, StatusBarComponent } from './component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(routes),
-    MaterialModule
+    MaterialModule,
+    SdkModule,
+    RouterModule
   ],
   declarations: [
     BaseComponent,
     StatusBarComponent,
-    PlayAreaComponent,
+    PlayAreaComponent
   ],
-  exports: [BaseComponent],
-  providers: [
-    EventService,
-    SubscriptionService
+  exports: [
+    BaseComponent
   ]
 })
 export class SoftwareModule { }

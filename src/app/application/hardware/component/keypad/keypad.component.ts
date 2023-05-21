@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { KeypadListenerService } from '../../../kernel/service';
-import { Keypad } from '../../enum';
+import { KeypadListenerService, Keypad } from '../../../sdk';
 
 @Component({
   selector: 'app-keypad',

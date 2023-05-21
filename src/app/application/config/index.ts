@@ -1,2 +1,1 @@
-export * from './configuration.constant';
-export * from './configuration.model';
+export * from './configuration';
