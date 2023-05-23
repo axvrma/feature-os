@@ -6,13 +6,15 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
 
 const materialElements = [
   MatSlideToggleModule,
   MatGridListModule,
   MatIconModule,
   MatButtonModule,
-  MatCardModule
+  MatCardModule,
+  MatDividerModule
 ]
 
 @NgModule({
