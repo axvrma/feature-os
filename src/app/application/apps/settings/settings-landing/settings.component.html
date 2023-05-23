@@ -1,3 +1,5 @@
-<p>
-  settings works!
-</p>
+<div *ngIf="settingsJson">
+  <ng-container *ngFor="let setting of settingsJson">
+    <p>{{setting.title}}</p>
+  </ng-container>
+</div>

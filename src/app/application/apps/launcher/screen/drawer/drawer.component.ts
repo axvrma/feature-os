@@ -42,7 +42,7 @@ export class DrawerComponent implements OnInit {
 
   prepareAppList() {
     this.appList = this.launcherService.getList();
-    if (!this.appList) {
+    if (!this.appList.length) {
       this.subs.add(
         this.launcherService.getListListener().subscribe(list => {
           this.appList = list as DrawerModel[];

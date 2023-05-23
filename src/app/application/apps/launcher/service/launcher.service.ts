@@ -2,13 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { DrawerModel } from '../model';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { APP_ROUTES } from '../../app.routes';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LauncherService {
 
-  private apps = ['phone', 'messages', 'calendar', 'calculator', 'alarms', 'settings'];
+  private apps = APP_ROUTES.filter(app => !app.systemApp);
   private pkgRoute = '/assets/apps/';
   private pkgFormat = '.pkg.json';
 
@@ -27,11 +28,13 @@ export class LauncherService {
 
   getPkgs() {
     this.apps.forEach(app => {
-      this.http.get(this.pkgRoute + app + this.pkgFormat).subscribe((res: any) => {
+      this.http.get(this.pkgRoute + app.path + this.pkgFormat).subscribe((res: any) => {
         this.appList.push(res);
+        if (this.appList.length === this.apps.length) {
+          this.listComplete()
+        }
       });
     });
-    setTimeout(() => this.listComplete(), 100);
   }
 
   private listComplete() {
