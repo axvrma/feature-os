@@ -10,7 +10,7 @@ import { SdkModule } from './sdk';
 
 const routes: Routes = [
   {
-    path: 'app',
+    path: '',
     component: ApplicationComponent,
     children: APP_ROUTES
   }
