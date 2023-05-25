@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { SettingsComponent } from './settings-landing';
+import { SdkModule } from '../../sdk';
+import { MaterialModule } from 'src/app/module';
 
 const routes: Routes = [
   {
@@ -13,7 +15,9 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(routes)
+    SdkModule,
+    RouterModule.forChild(routes),
+    MaterialModule,
   ],
   declarations: [SettingsComponent]
 })

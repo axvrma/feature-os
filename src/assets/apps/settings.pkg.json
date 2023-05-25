@@ -2,61 +2,63 @@
   "icon": "settings",
   "title": "Settings",
   "route": "/settings",
-  "children": [
-    {
-      "title": "System",
-      "children": [
-        {
-          "title": "Notifications"
-        },
-        {
-          "title": "About"
-        }
-      ]
-    },
-    {
-      "title": "Personalization",
-      "children": [
-        {
-          "title": "Lock Screen Background",
-          "children": [
-            {
-              "title": "Wallpapers"
-            }
-          ]
-        },
-        {
-          "title": "Theme"
-        },
-        {
-          "title": "Keypad"
-        },
-        {
-          "title": "About"
-        }
-      ]
-    },
-    {
-      "title": "Time & Language",
-      "children": [
-        {
-          "title": "Date & Time"
-        },
-        {
-          "title": "Phone Language"
-        }
-      ]
-    },
-    {
-      "title": "GoTo Settings",
-      "children": [
-        {
-          "title": "Select Options"
-        },
-        {
-          "title": "Organize"
-        }
-      ]
-    }
-  ]
+  "data": {
+    "children": [
+      {
+        "title": "System",
+        "children": [
+          {
+            "title": "Notifications"
+          },
+          {
+            "title": "About"
+          }
+        ]
+      },
+      {
+        "title": "Personalization",
+        "children": [
+          {
+            "title": "Lock Screen Background",
+            "children": [
+              {
+                "title": "Wallpapers"
+              }
+            ]
+          },
+          {
+            "title": "Theme"
+          },
+          {
+            "title": "Keypad"
+          },
+          {
+            "title": "About"
+          }
+        ]
+      },
+      {
+        "title": "Time & Language",
+        "children": [
+          {
+            "title": "Date & Time"
+          },
+          {
+            "title": "Phone Language"
+          }
+        ]
+      },
+      {
+        "title": "GoTo Settings",
+        "children": [
+          {
+            "title": "Select Options"
+          },
+          {
+            "title": "Organize"
+          }
+        ]
+      }
+    ]
+  }
 }

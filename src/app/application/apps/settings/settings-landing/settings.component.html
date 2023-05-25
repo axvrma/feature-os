@@ -1,5 +1,8 @@
-<div *ngIf="settingsJson">
-  <ng-container *ngFor="let setting of settingsJson">
+<div *ngIf="settingsData">
+  <div class="header">Settings</div>
+  <div *ngFor="let setting of currentSettingsList.children; let i=index" [ngClass]="{'active': getLastDepth() === i}">
     <p>{{setting.title}}</p>
-  </ng-container>
+  </div>
 </div>
+
+<app-action-bar [actions]="actionBar"></app-action-bar>

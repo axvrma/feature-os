@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { SettingsModel } from '../model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +12,8 @@ export class SettingsService {
     private http: HttpClient
   ) { }
 
-  loadSettings() {
-    return this.http.get('/assets/apps/settings.pkg.json');
+  loadSettings(): Observable<SettingsModel> {
+    return this.http.get('/assets/apps/settings.pkg.json') as any;
   }
 
 }

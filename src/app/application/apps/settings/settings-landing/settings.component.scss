@@ -1,0 +1,18 @@
+div {
+  background-color: black;
+  color: white;
+}
+
+p {
+  padding: 12px 1rem;
+  margin: 0;
+}
+
+.active {
+  background-color: red;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+}
