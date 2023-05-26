@@ -27,9 +27,10 @@ export class LauncherService {
   }
 
   getPkgs() {
-    this.apps.forEach(app => {
+    this.apps.forEach((app, index: number) => {
       this.http.get(this.pkgRoute + app.path + this.pkgFormat).subscribe((res: any) => {
-        this.appList.push(res);
+        this.appList[index] = res;
+        // this.appList.push(res);
         if (this.appList.length === this.apps.length) {
           this.listComplete()
         }

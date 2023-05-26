@@ -1,0 +1,17 @@
+:host {
+  height: 280px;
+  // overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+app-status-bar {
+  position: absolute;
+  top: 0;
+}
+
+app-play-area {
+  margin-top: 0px;
+  display: flex;
+  flex-direction: column;
+}

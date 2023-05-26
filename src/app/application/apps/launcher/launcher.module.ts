@@ -1,11 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LauncherComponent } from './landing-launcher';
-import { MaterialModule } from 'src/app/module';
-import { DateTimeWidgetComponent } from './component';
-import { HomeComponent, DrawerComponent } from './screen';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SdkModule } from '../../sdk/sdk.module';
+import { MaterialModule } from 'src/app/module';
+import { SdkModule } from '../../sdk';
+import { DateTimeWidgetComponent } from './component';
+import { LauncherComponent } from './landing-launcher';
+import { DrawerComponent, HomeComponent } from './screen';
 
 const routes: Routes = [
   {
@@ -27,9 +27,9 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
-    SdkModule,
     RouterModule.forChild(routes),
-    MaterialModule,
+    SdkModule,
+    MaterialModule
   ],
   declarations: [LauncherComponent, DateTimeWidgetComponent, HomeComponent, DrawerComponent],
   exports: [LauncherComponent]

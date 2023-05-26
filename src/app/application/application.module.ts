@@ -1,12 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ApplicationComponent } from './application-landing';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MaterialModule } from '../module';
+import { ApplicationComponent } from './application-landing';
+import { APP_ROUTES } from './apps';
 import { HardwareModule } from './hardware';
 import { SoftwareModule } from './software';
-import { APP_ROUTES } from './apps';
-import { SdkModule } from './sdk';
 
 const routes: Routes = [
   {
@@ -20,10 +19,9 @@ const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    MaterialModule,
     HardwareModule,
     SoftwareModule,
-    SdkModule
+    MaterialModule
   ],
   declarations: [ApplicationComponent]
 })

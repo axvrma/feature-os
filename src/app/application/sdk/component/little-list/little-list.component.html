@@ -1,0 +1,8 @@
+<mat-list *ngIf="data && data?.length">
+  <mat-list-item *ngFor="let element of data; let i=index" class="active">
+    <!-- [ngClass]="{'active': getLastDepth() === i}" [id]="i" -->
+    <mat-icon matListItemIcon>{{element.icon}}</mat-icon>
+    <span matListItemTitle>{{element.title}}</span>
+    <span matListItemLine *ngIf="element.subTitle">{{element.subTitle}}</span>
+  </mat-list-item>
+</mat-list>

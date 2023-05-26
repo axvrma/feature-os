@@ -2,10 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from 'src/app/module';
 import { EventService, KeypadListenerService, SubscriptionService } from './service';
-import { ActionBarComponent } from './component';
+import { ActionBarComponent, LittleListComponent, SafeAreaComponent, ScaffoldComponent } from './component';
 
 const COMPONENT = [
-  ActionBarComponent
+  ActionBarComponent,
+  ScaffoldComponent,
+  LittleListComponent,
+  SafeAreaComponent
 ];
 
 const SERVICE = [

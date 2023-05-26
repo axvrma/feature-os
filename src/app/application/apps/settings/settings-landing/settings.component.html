@@ -1,10 +1,11 @@
-<mat-list *ngIf="currentSettingsList">
-  <div mat-subheader>Folders</div>
-  <mat-list-item *ngFor="let setting of currentSettingsList.children; let i=index"
-    [ngClass]="{'active': getLastDepth() === i}">
-    <mat-icon matListItemIcon>{{setting.icon}}</mat-icon>
-    <div matListItemTitle>{{setting.title}}</div>
-  </mat-list-item>
-</mat-list>
+<app-scaffold [appName]="'Settings'" [actions]="actionBar">
 
-<app-action-bar [actions]="actionBar"></app-action-bar>
+  <mat-list *ngIf="currentSettingsList">
+    <mat-list-item *ngFor="let setting of currentSettingsList.children; let i=index"
+      [ngClass]="{'active': getLastDepth() === i}" [id]="i">
+      <mat-icon matListItemIcon>{{setting.icon}}</mat-icon>
+      <span matListItemTitle>{{setting.title}}</span>
+    </mat-list-item>
+  </mat-list>
+
+</app-scaffold>

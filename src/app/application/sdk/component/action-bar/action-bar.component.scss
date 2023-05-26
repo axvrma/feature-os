@@ -1,24 +1,28 @@
 :host {
-  display: flex;
-  width: auto;
-  justify-content: space-between;
-  background: rgba(0, 0, 0, 0.241);
-  align-items: center;
-  padding: 4px 0;
   position: absolute;
+  display: flex;
+  flex-direction: column;
   bottom: 0;
   width: 100%;
 }
 
+div {
+  display: flex;
+  width: auto;
+  justify-content: space-between;
+  background: white;
+  align-items: center;
+}
+
 mat-icon {
   &:first-child {
-    margin: 0 0 4px 8px;
+    margin: 4px 0 4px 12px;
   }
   &:last-child {
-    margin: 0 8px 4px 0;
+    margin: 4px 12px 4px 0;
   }
 }
 
 span {
-  margin-bottom: 4px;
+  font-weight: bold;
 }

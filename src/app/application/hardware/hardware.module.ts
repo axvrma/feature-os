@@ -1,15 +1,15 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HardwareComponent } from './hardware-landing';
+import { NgModule } from '@angular/core';
 import { MaterialModule } from 'src/app/module';
-import { ScreenComponent, KeypadComponent } from './component';
 import { SdkModule } from '../sdk';
+import { KeypadComponent, ScreenComponent } from './component';
+import { HardwareComponent } from './hardware-landing';
 
 @NgModule({
   imports: [
     CommonModule,
-    MaterialModule,
-    SdkModule
+    SdkModule,
+    MaterialModule
   ],
   declarations: [HardwareComponent, ScreenComponent, KeypadComponent],
   exports: [HardwareComponent],

@@ -1,17 +1,17 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MaterialModule } from 'src/app/module';
-import { SdkModule } from '../sdk';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { BaseComponent } from './base-landing';
 import { PlayAreaComponent, StatusBarComponent } from './component';
-import { RouterModule } from '@angular/router';
+import { SdkModule } from '../sdk';
+import { MaterialModule } from 'src/app/module';
 
 @NgModule({
   imports: [
     CommonModule,
-    MaterialModule,
+    RouterModule,
     SdkModule,
-    RouterModule
+    MaterialModule
   ],
   declarations: [
     BaseComponent,

@@ -5,7 +5,8 @@ p {
 
 .active {
   background-color: rgba(0, 132, 255, 0.4);
-  border: 2px solid rgba(0, 132, 255, 0.7);
+  border-block: 2px solid rgba(0, 132, 255, 0.7);
+  border-inline: 2px solid rgba(0, 132, 255, 0.7);
 }
 
 .header {
@@ -14,8 +15,17 @@ p {
 }
 
 mat-list-item {
+  border-inline: 2px solid transparent;
+  border-block: 2px solid transparent;
   border-radius: 1rem !important;
   margin: 0 8px;
   width: auto;
-  border: 2px solid transparent;
+}
+
+mat-list {
+  padding: 0;
+}
+
+mat-icon {
+  margin-right: 18px !important;
 }

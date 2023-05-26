@@ -1,6 +1,8 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { MaterialModule } from 'src/app/module';
+import { SdkModule } from '../../sdk';
 import { AlarmsComponent } from './alarms-landing';
 
 const routes: Routes = [
@@ -13,7 +15,9 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    SdkModule,
+    MaterialModule
   ],
   declarations: [AlarmsComponent]
 })
