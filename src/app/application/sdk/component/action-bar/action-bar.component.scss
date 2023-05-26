@@ -4,9 +4,21 @@
   justify-content: space-between;
   background: rgba(0, 0, 0, 0.241);
   align-items: center;
-  padding: 2px 0;
+  padding: 4px 0;
   position: absolute;
   bottom: 0;
   width: 100%;
-  color: white;
+}
+
+mat-icon {
+  &:first-child {
+    margin: 0 0 4px 8px;
+  }
+  &:last-child {
+    margin: 0 8px 4px 0;
+  }
+}
+
+span {
+  margin-bottom: 4px;
 }

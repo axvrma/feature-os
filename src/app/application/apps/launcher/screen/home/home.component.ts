@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
       icon: 'menu',
     },
     center: {
-      text: 'menu',
+      text: 'Menu',
     },
     right: {
       icon: 'menu',

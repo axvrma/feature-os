@@ -1,18 +1,21 @@
-div {
-  background-color: black;
-  color: white;
-}
-
 p {
   padding: 12px 1rem;
   margin: 0;
 }
 
 .active {
-  background-color: red;
+  background-color: rgba(0, 132, 255, 0.4);
+  border: 2px solid rgba(0, 132, 255, 0.7);
 }
 
 .header {
   display: flex;
   justify-content: center;
+}
+
+mat-list-item {
+  border-radius: 1rem !important;
+  margin: 0 8px;
+  width: auto;
+  border: 2px solid transparent;
 }

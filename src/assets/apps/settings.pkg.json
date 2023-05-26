@@ -6,56 +6,67 @@
     "children": [
       {
         "title": "System",
+        "icon": "settings",
         "children": [
           {
-            "title": "Notifications"
+            "title": "Notifications",
+            "icon": "notifications"
           },
           {
-            "title": "About"
+            "title": "About",
+            "icon": "info"
           }
         ]
       },
       {
         "title": "Personalization",
+        "icon": "draw",
         "children": [
           {
             "title": "Lock Screen Background",
+            "icon": "wallpaper_slideshow",
             "children": [
               {
-                "title": "Wallpapers"
+                "title": "Wallpapers",
+                "icon": "wallpaper"
               }
             ]
           },
           {
-            "title": "Theme"
+            "title": "Theme",
+            "icon": "dark_mode"
           },
           {
-            "title": "Keypad"
-          },
-          {
-            "title": "About"
+            "title": "Keypad",
+            "icon": "keyboard"
           }
         ]
       },
       {
         "title": "Time & Language",
+        "icon": "schedule",
         "children": [
           {
-            "title": "Date & Time"
+            "title": "Date & Time",
+            "icon": "calendar_month"
           },
           {
-            "title": "Phone Language"
+            "title": "Phone Language",
+            "icon": "translate"
           }
         ]
       },
       {
         "title": "GoTo Settings",
+        "icon": "tune",
         "children": [
           {
-            "title": "Select Options"
+            "title": "Select Options",
+            "icon": "list"
           },
           {
-            "title": "Organize"
+            "title": "Organize",
+            "icon": "sort"
           }
         ]
       }

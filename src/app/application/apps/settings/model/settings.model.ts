@@ -4,5 +4,6 @@ export interface SettingsModel extends PackageModel<SettingsChildrenModel> { }
 
 export interface SettingsChildrenModel {
   title?: string,
+  icon?: string,
   children?: SettingsChildrenModel[],
 }
