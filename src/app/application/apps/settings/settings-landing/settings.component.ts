@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActionBarModel, EventService, Keypad, SubscriptionService } from 'src/app/application/sdk';
-import { SettingsService } from '../service';
 import { SettingsChildrenModel, SettingsModel } from '../model';
+import { SettingsService } from '../service';
 
 @Component({
   selector: 'app-settings',
