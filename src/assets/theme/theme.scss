@@ -1,0 +1,27 @@
+@import "./variables.scss";
+
+// light mode
+$light-primary: mat-palette($light-primary-palette, 900);
+$light-accent: mat-palette($mat-lime);
+$light-accent: mat-palette($light-secondary-palette, 200);
+$light-warn: mat-palette($mat-red);
+
+// Light theme
+$light-mode: mat-light-theme($light-primary, $light-accent, $light-warn);
+
+// dark mode
+$dark-primary: mat-palette($mat-indigo);
+$dark-accent: mat-palette($mat-green);
+$dark-warn: mat-palette($mat-red);
+
+// dark theme
+$dark-mode: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+
+// theme class
+.light-theme {
+  @include angular-material-theme($light-mode);
+}
+
+.dark-theme {
+  @include angular-material-theme($dark-mode);
+}

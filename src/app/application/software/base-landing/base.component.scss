@@ -1,6 +1,6 @@
 :host {
-  height: 280px;
-  // overflow: hidden;
+  height: 100%;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
 }
@@ -8,6 +8,7 @@
 app-status-bar {
   position: absolute;
   top: 0;
+  z-index: 1;
 }
 
 app-play-area {

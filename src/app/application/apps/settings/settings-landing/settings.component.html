@@ -1,11 +1,6 @@
 <app-scaffold [appName]="'Settings'" [actions]="actionBar">
 
-  <mat-list *ngIf="currentSettingsList">
-    <mat-list-item *ngFor="let setting of currentSettingsList.children; let i=index"
-      [ngClass]="{'active': getLastDepth() === i}" [id]="i">
-      <mat-icon matListItemIcon>{{setting.icon}}</mat-icon>
-      <span matListItemTitle>{{setting.title}}</span>
-    </mat-list-item>
-  </mat-list>
+  <app-little-list *ngIf="currentSettingsList" [data]="currentSettingsList.children"
+    [currentRow]="getLastDepth()"></app-little-list>
 
 </app-scaffold>

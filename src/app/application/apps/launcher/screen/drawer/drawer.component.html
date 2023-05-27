@@ -1,7 +1,9 @@
 <app-safe-area>
-  <div *ngFor="let app of appList">
-    <mat-icon [fontIcon]="app.icon" [ngClass]="{'active': app.active}"></mat-icon>
-  </div>
+  <ng-container *ngIf="appList">
+    <div *ngFor="let app of appList">
+      <mat-icon [fontIcon]="app?.icon || ''" [ngClass]="{'active': app.active}"></mat-icon>
+    </div>
+  </ng-container>
 
   <app-action-bar [actions]="actionBar"></app-action-bar>
 </app-safe-area>

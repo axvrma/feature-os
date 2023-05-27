@@ -8,6 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class LittleListComponent implements OnInit {
 
   @Input() data: any;
+  @Input() currentRow: number;
 
   constructor () { }
 

@@ -1,11 +1,13 @@
 <app-safe-area>
-  <mat-toolbar *ngIf="appName">
-    <span id="appName">{{appName}}</span>
-  </mat-toolbar>
+  <mat-card>
+    <mat-toolbar *ngIf="appName">
+      <span id="appName">{{appName}}</span>
+    </mat-toolbar>
 
-  <div>
-    <ng-content></ng-content>
-  </div>
+    <div>
+      <ng-content></ng-content>
+    </div>
+  </mat-card>
 </app-safe-area>
 
 <app-action-bar *ngIf="actions" [actions]="actions"></app-action-bar>

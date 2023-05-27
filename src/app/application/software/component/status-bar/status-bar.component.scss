@@ -3,10 +3,12 @@ $height: 20px;
 :host {
   width: 100%;
   height: $height;
+}
+
+mat-card {
   display: flex;
+  flex-direction: row;
   justify-content: flex-end;
-  background-color: rgba(43, 43, 43, 0.505);
-  color: black;
   align-items: center;
   padding: 4px 0 4px 0;
 }

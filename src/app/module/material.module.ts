@@ -19,7 +19,8 @@ const materialElements = [
   MatCardModule,
   MatDividerModule,
   MatListModule,
-  MatToolbarModule
+  MatToolbarModule,
+  MatSlideToggleModule
 ]
 
 @NgModule({

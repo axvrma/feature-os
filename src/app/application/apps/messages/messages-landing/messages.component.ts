@@ -42,7 +42,6 @@ export class MessagesComponent implements OnInit {
       this.messagesService.loadMessages().subscribe((res: any) => {
         this.messagesData = res.data;
         this.depth = [0];
-        console.log(this.messagesData);
       })
     );
   }
