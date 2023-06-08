@@ -2,13 +2,4 @@
 
   <app-little-list *ngIf="messagesData" [data]="messagesData?.children"></app-little-list>
 
-  <!-- <mat-list *ngIf="messagesData">
-    <mat-list-item *ngFor="let setting of messagesData.children; let i=index"
-      [ngClass]="{'active': getLastDepth() === i}" [id]="i">
-      <mat-icon matListItemIcon>{{setting.icon}}</mat-icon>
-      <span matListItemTitle>{{setting.title}}</span>
-      <span matListItemLine>{{setting.subTitle}}</span>
-    </mat-list-item>
-  </mat-list> -->
-
 </app-scaffold>

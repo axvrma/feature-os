@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ActionBarModel, EventService, Keypad, SubscriptionService } from 'src/app/application/sdk';
+import { ActionBarModel, EventService, Keypad, KeypadAction, SubscriptionService } from 'src/app/application/sdk';
 import { SettingsChildrenModel, SettingsModel } from '../model';
 import { SettingsService } from '../service';
+import { ROUTE_LAUNCHER } from '../../launcher';
 
 @Component({
   selector: 'app-settings',
@@ -28,16 +29,45 @@ export class SettingsComponent implements OnInit {
     }
   }
 
+  keypadAction: KeypadAction = {
+    [Keypad.D_PAD_CENTER]: () => {
+      this.currentSettingsList = (this.currentSettingsList.children as SettingsChildrenModel[])[this.getLastDepth()];
+      this.addNewDepth();
+    },
+    [Keypad.ACTION_RIGHT]: () => {
+      if (this.depth.length > 1) {
+        this.deleteOneDepth();
+        this.currentSettingsList = this.getSettingsFromDepth();
+      } else {
+        this.router.navigateByUrl(ROUTE_LAUNCHER.DRAWER);
+      }
+    },
+    [Keypad.D_PAD_UP]: () => {
+      if (this.getLastDepth() === 0) {
+        this.setLastDepth((this.currentSettingsList.children as SettingsChildrenModel[])?.length - 1);
+      } else {
+        this.setLastDepth(this.getLastDepth() - 1);
+      }
+      document.getElementById('' + this.getLastDepth())?.scrollIntoView({ behavior: "smooth", block: "start" });
+    },
+    [Keypad.D_PAD_DOWN]: () => {
+      if (this.getLastDepth() === (this.currentSettingsList.children as SettingsChildrenModel[]).length - 1) {
+        this.setLastDepth(0);
+      } else {
+        this.setLastDepth(this.getLastDepth() + 1);
+      }
+      document.getElementById('' + this.getLastDepth())?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
+
   constructor (
     private subs: SubscriptionService,
     private settingsService: SettingsService,
-    private eventService: EventService,
     private router: Router,
   ) { }
 
   ngOnInit() {
     this.getSettingsJSON();
-    this.keypadListener();
   }
 
   getSettingsJSON() {
@@ -46,50 +76,6 @@ export class SettingsComponent implements OnInit {
         this.settingsData = res.data;
         this.depth = [0];
         this.currentSettingsList = this.settingsData as SettingsChildrenModel;
-      })
-    );
-  }
-
-  keypadListener() {
-    this.subs.add(
-      this.eventService.getEvent().subscribe((res: any) => {
-        switch (res) {
-          case Keypad.D_PAD_CENTER: {
-            this.currentSettingsList = (this.currentSettingsList.children as SettingsChildrenModel[])[this.getLastDepth()];
-            this.addNewDepth();
-            break;
-          }
-          case Keypad.ACTION_LEFT: {
-            break;
-          }
-          case Keypad.ACTION_RIGHT: {
-            if (this.depth.length > 1) {
-              this.deleteOneDepth();
-              this.currentSettingsList = this.getSettingsFromDepth();
-            } else {
-              this.router.navigateByUrl('/app/launcher/drawer');
-            }
-            break;
-          }
-          case Keypad.D_PAD_UP: {
-            if (this.getLastDepth() === 0) {
-              this.setLastDepth((this.currentSettingsList.children as SettingsChildrenModel[])?.length - 1);
-            } else {
-              this.setLastDepth(this.getLastDepth() - 1);
-            }
-            document.getElementById('' + this.getLastDepth())?.scrollIntoView({ behavior: "smooth", block: "start" });
-            break;
-          }
-          case Keypad.D_PAD_DOWN: {
-            if (this.getLastDepth() === (this.currentSettingsList.children as SettingsChildrenModel[]).length - 1) {
-              this.setLastDepth(0);
-            } else {
-              this.setLastDepth(this.getLastDepth() + 1);
-            }
-            document.getElementById('' + this.getLastDepth())?.scrollIntoView({ behavior: "smooth", block: "start" });
-            break;
-          }
-        }
       })
     );
   }

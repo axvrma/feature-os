@@ -1,7 +1,7 @@
 export interface ActionBarModel {
-  left: IconAction,
-  center: TextAction,
-  right: IconAction,
+  left?: IconAction,
+  center?: TextAction,
+  right?: IconAction,
 }
 
 interface IconAction {

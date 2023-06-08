@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActionBarModel, Keypad, KeypadAction } from 'src/app/application/sdk';
+import { ROUTE_LAUNCHER } from '../../launcher';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-calendar',
@@ -7,9 +10,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CalendarComponent implements OnInit {
 
-  constructor () { }
+  appName = 'Calendar';
+
+  actions: ActionBarModel = {
+    right: {
+      icon: 'arrow_back'
+    }
+  }
+
+  keypadAction: KeypadAction = {
+    [Keypad.ACTION_RIGHT]: () => {
+      this.router.navigateByUrl(ROUTE_LAUNCHER.DRAWER);
+    }
+  }
+
+  constructor (
+    private router: Router
+  ) { }
 
   ngOnInit() {
   }
-
 }
