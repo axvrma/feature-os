@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { DrawerModel } from '../model';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { APP_ROUTES } from '../../app.routes';
+import { DrawerModel } from '../model';
 
 @Injectable({
   providedIn: 'root'
