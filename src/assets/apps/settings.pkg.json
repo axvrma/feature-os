@@ -7,6 +7,7 @@
       {
         "title": "System",
         "icon": "settings",
+        "visible": false,
         "children": [
           {
             "title": "Notifications",
@@ -25,6 +26,7 @@
           {
             "title": "Lock Screen Background",
             "icon": "wallpaper_slideshow",
+            "visible": false,
             "children": [
               {
                 "title": "Wallpapers",
@@ -45,6 +47,7 @@
       {
         "title": "Time & Language",
         "icon": "schedule",
+        "visible": false,
         "children": [
           {
             "title": "Date & Time",
@@ -57,15 +60,16 @@
         ]
       },
       {
-        "title": "GoTo Settings",
+        "title": "Launcher Shortcuts",
         "icon": "tune",
+        "visible": true,
         "children": [
           {
-            "title": "Select Options",
+            "title": "Left Icon",
             "icon": "list"
           },
           {
-            "title": "Organize",
+            "title": "Right Icon",
             "icon": "sort"
           }
         ]

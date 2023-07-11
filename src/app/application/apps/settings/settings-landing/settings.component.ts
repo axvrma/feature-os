@@ -75,6 +75,7 @@ export class SettingsComponent implements OnInit {
       this.settingsService.loadSettings().subscribe((res: SettingsModel) => {
         this.settingsData = res.data;
         this.depth = [0];
+        this.settingsData.children = this.settingsData.children?.filter((item: SettingsChildrenModel) => item.visible);
         this.currentSettingsList = this.settingsData as SettingsChildrenModel;
       })
     );
