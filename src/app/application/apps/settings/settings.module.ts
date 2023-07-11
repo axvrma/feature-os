@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MaterialModule } from 'src/app/module';
 import { SdkModule } from '../../sdk';
-import { SettingsComponent } from './settings-landing';
+import { SettingsComponent } from './screen';
 
 const routes: Routes = [
   {

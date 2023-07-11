@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActionBarModel, EventService, Keypad, KeypadAction, SubscriptionService } from 'src/app/application/sdk';
-import { SettingsChildrenModel, SettingsModel } from '../model';
-import { SettingsService } from '../service';
-import { ROUTE_LAUNCHER } from '../../launcher';
+import { SettingsChildrenModel, SettingsModel } from '../../model';
+import { SettingsService } from '../../service';
+import { ROUTE_LAUNCHER } from '../../../launcher';
 
 @Component({
   selector: 'app-settings',

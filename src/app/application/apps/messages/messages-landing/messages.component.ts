@@ -48,6 +48,7 @@ export class MessagesComponent implements OnInit {
   }
 
   keypadListener() {
+    // TODO: fix this
     this.subs.add(
       this.eventService.getEvent().subscribe((res: any) => {
         switch (res) {
