@@ -9,7 +9,27 @@ app-safe-area {
   height: 100%;
 }
 
-div {
+.appName {
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.appListScreen {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.appListGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 2px;
+  gap: 4px;
+}
+
+.appIcon {
   width: 100%;
   height: 100%;
   display: flex;
@@ -24,6 +44,7 @@ mat-icon {
   font-size: 2rem;
   background: grey;
   padding: 1rem;
+  border: 6px solid white;
 }
 
 .active {

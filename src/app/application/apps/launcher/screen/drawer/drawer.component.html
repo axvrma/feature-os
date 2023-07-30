@@ -1,9 +1,16 @@
 <app-safe-area>
-  <ng-container *ngIf="appList">
-    <div *ngFor="let app of appList">
-      <mat-icon [fontIcon]="app?.icon || ''" [ngClass]="{'active': app.active}"></mat-icon>
+  <div class="appListScreen">
+    <div class="appName">{{appNameLabel}}</div>
+    <div class="appListGrid">
+      <ng-container [ngTemplateOutlet]="appListTemplate" *ngIf="appList"></ng-container>
     </div>
-  </ng-container>
+  </div>
 
   <app-action-bar [actions]="actionBar"></app-action-bar>
 </app-safe-area>
+
+<ng-template #appListTemplate>
+  <div class="appIcon" *ngFor="let app of appList">
+    <mat-icon [fontIcon]="app?.icon || ''" [ngClass]="{'active': app.active}"></mat-icon>
+  </div>
+</ng-template>

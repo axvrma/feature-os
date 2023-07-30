@@ -15,7 +15,7 @@ export class DrawerComponent implements OnInit {
 
   appList: DrawerModel[];
   baseRoute = '/app';
-
+  appNameLabel: string;
   actionBar: ActionBarModel = {
     left: {
       icon: 'menu',
@@ -55,6 +55,7 @@ export class DrawerComponent implements OnInit {
 
   processAppList() {
     this.appList.forEach((app: DrawerModel, index: number) => app.active = !!(index === 4));
+    this.appNameLabel = this.appList.find(app => app.active)?.title || '';
   }
 
   listenKeypad() {
@@ -63,6 +64,12 @@ export class DrawerComponent implements OnInit {
         this.onKeyAction(res);
       })
     );
+  }
+
+  commonDPadArrowAction(index: number, newIndex: number) {
+    this.appList[index].active = false;
+    this.appList[newIndex].active = true;
+    this.appNameLabel = this.appList[newIndex].title;
   }
 
   onKeyAction(action: Keypad) {
@@ -75,29 +82,25 @@ export class DrawerComponent implements OnInit {
       case Keypad.D_PAD_UP: {
         const index = this.appList.findIndex(app => app.active)
         const newIndex = index > -1 && index > 2 ? index - 3 : index;
-        this.appList[index].active = false;
-        this.appList[newIndex].active = true;
+        this.commonDPadArrowAction(index, newIndex);
         break;
       }
       case Keypad.D_PAD_DOWN: {
         const index = this.appList.findIndex(app => app.active)
         const newIndex = index > -1 && index < this.appList.length - 3 ? index + 3 : index;
-        this.appList[index].active = false;
-        this.appList[newIndex].active = true;
+        this.commonDPadArrowAction(index, newIndex);
         break;
       }
       case Keypad.D_PAD_LEFT: {
         const index = this.appList.findIndex(app => app.active)
         const newIndex = index > -1 && index > 0 ? index - 1 : index;
-        this.appList[index].active = false;
-        this.appList[newIndex].active = true;
+        this.commonDPadArrowAction(index, newIndex);
         break;
       }
       case Keypad.D_PAD_RIGHT: {
         const index = this.appList.findIndex(app => app.active)
         const newIndex = index > -1 && index < this.appList.length - 1 ? index + 1 : index;
-        this.appList[index].active = false;
-        this.appList[newIndex].active = true;
+        this.commonDPadArrowAction(index, newIndex);
         break;
       }
       case Keypad.ACTION_LEFT: {
