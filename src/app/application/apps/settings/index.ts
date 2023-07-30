@@ -1,3 +1,3 @@
 export * from './settings.module';
 
-export * from './settings-landing';
+export * from './screen/settings-landing';

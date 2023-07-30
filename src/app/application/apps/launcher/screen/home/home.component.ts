@@ -27,9 +27,7 @@ export class HomeComponent implements OnInit {
     private subs: SubscriptionService,
     private eventService: EventService,
     private router: Router
-  ) {
-    this.listenKeypad();
-  }
+  ) { }
 
   ngOnInit() {
     this.listenKeypad();
@@ -43,6 +41,7 @@ export class HomeComponent implements OnInit {
   }
 
   onKeyAction(action: Keypad) {
+    // TODO: fix this
     switch (action) {
       case Keypad.D_PAD_CENTER: {
         this.router.navigateByUrl(ROUTE_LAUNCHER.DRAWER);
