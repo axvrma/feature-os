@@ -1,5 +1,3 @@
-<app-scaffold [appName]="'Messages'" [actions]="actions">
-
-  <app-little-list *ngIf="messagesData" [data]="messagesData?.children"></app-little-list>
-
+<app-scaffold [appName]="'Messages'" [actions]="actions" [keyPadAction]="keypadAction">
+  <app-little-list *ngIf="messagesData" [data]="messagesData?.children" [keypadAction]="keypadAction"></app-little-list>
 </app-scaffold>

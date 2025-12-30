@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ActionBarModel, EventService, Keypad, SubscriptionService } from 'src/app/application/sdk';
+import { ActionBarModel, EventService, Keypad, KeypadAction, SubscriptionService } from 'src/app/application/sdk';
 import { MessagesService } from '../service';
 
 @Component({
@@ -26,16 +26,22 @@ export class MessagesComponent implements OnInit {
     }
   }
 
+  keypadAction: KeypadAction = {
+    [Keypad.D_PAD_UP]: () => {
+
+    },
+    [Keypad.D_PAD_DOWN]: () => {
+
+    }
+  }
+
   constructor (
     private subs: SubscriptionService,
-    private messagesService: MessagesService,
-    private eventService: EventService,
-    private router: Router,
+    private messagesService: MessagesService
   ) { }
 
   ngOnInit() {
     this.getMessagesJSON();
-    this.keypadListener();
   }
 
   getMessagesJSON() {
@@ -43,51 +49,6 @@ export class MessagesComponent implements OnInit {
       this.messagesService.loadMessages().subscribe((res: any) => {
         this.messagesData = res.data;
         this.depth = [0];
-      })
-    );
-  }
-
-  keypadListener() {
-    // TODO: fix this
-    this.subs.add(
-      this.eventService.getEvent().subscribe((res: any) => {
-        switch (res) {
-          case Keypad.D_PAD_CENTER: {
-            // this.currentSettingsList = (this.currentSettingsList.children as any[])[this.getLastDepth()];
-            // this.addNewDepth();
-            break;
-          }
-          case Keypad.ACTION_LEFT: {
-            break;
-          }
-          case Keypad.ACTION_RIGHT: {
-            if (this.depth.length > 1) {
-              // this.deleteOneDepth();
-              // this.currentSettingsList = this.getSettingsFromDepth();
-            } else {
-              this.router.navigateByUrl('/app/launcher/drawer');
-            }
-            break;
-          }
-          case Keypad.D_PAD_UP: {
-            // if (this.getLastDepth() === 0) {
-            //   this.setLastDepth((this.currentSettingsList.children as any[])?.length - 1);
-            // } else {
-            //   this.setLastDepth(this.getLastDepth() - 1);
-            // }
-            document.getElementById('' + this.getLastDepth())?.scrollIntoView({ behavior: "smooth", block: "start" });
-            break;
-          }
-          case Keypad.D_PAD_DOWN: {
-            // if (this.getLastDepth() === (this.currentSettingsList.children as any[]).length - 1) {
-            //   this.setLastDepth(0);
-            // } else {
-            //   this.setLastDepth(this.getLastDepth() + 1);
-            // }
-            document.getElementById('' + this.getLastDepth())?.scrollIntoView({ behavior: "smooth", block: "start" });
-            break;
-          }
-        }
       })
     );
   }

@@ -7,7 +7,7 @@
       {
         "title": "System",
         "icon": "settings",
-        "visible": false,
+        "visible": true,
         "children": [
           {
             "title": "Notifications",
@@ -22,6 +22,7 @@
       {
         "title": "Personalization",
         "icon": "draw",
+        "visible": true,
         "children": [
           {
             "title": "Lock Screen Background",
@@ -47,7 +48,7 @@
       {
         "title": "Time & Language",
         "icon": "schedule",
-        "visible": false,
+        "visible": true,
         "children": [
           {
             "title": "Date & Time",
