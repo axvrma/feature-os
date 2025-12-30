@@ -1,3 +1,3 @@
 export * from './alarms.module';
 
-export * from './alarms-landing';
+export * from './screen';

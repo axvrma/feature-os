@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MaterialModule } from 'src/app/module';
 import { SdkModule } from '../../sdk';
-import { AlarmsComponent } from './alarms-landing';
+import { AlarmsComponent } from './screen/alarms-landing';
 
 const routes: Routes = [
   {

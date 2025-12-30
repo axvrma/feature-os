@@ -1,5 +1,14 @@
 {
   "icon": "alarm",
   "title": "Alarms",
-  "route": "/alarms"
+  "route": "/alarms",
+  "data": {
+    "children": [
+      {
+        "title": "4:00",
+        "icon": "alarm",
+        "visible": true
+      }
+    ]
+  }
 }

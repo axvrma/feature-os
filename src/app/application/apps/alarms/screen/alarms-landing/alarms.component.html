@@ -1,0 +1,3 @@
+<app-scaffold [appName]="appName" [actions]="actions" [keyPadAction]="keypadAction">
+    <app-little-list *ngIf="alarmsData" [data]="alarmsData?.children" [keypadAction]="keypadAction"></app-little-list>
+</app-scaffold>
