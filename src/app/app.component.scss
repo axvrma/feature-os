@@ -16,6 +16,7 @@
   --md-sys-color-surface-container-low: var(--mat-sys-surface-container-low);
   --md-sys-color-surface-container: var(--mat-sys-surface-container);
   --md-sys-color-surface-container-high: var(--mat-sys-surface-container-high);
+  --md-sys-color-surface-container-highest: var(--mat-sys-surface-container-highest);
   --md-sys-color-on-surface: var(--mat-sys-on-surface);
   --md-sys-color-on-surface-variant: var(--mat-sys-on-surface-variant);
   --md-sys-color-outline: var(--mat-sys-outline);
@@ -49,6 +50,20 @@
   background: linear-gradient(145deg, #33459d, #1b2a6e);
   border-color: color-mix(in srgb, var(--mat-sys-outline) 42%, transparent);
   box-shadow: var(--mat-sys-level5);
+  --mat-button-filled-container-color: var(--md-sys-color-primary);
+  --mat-button-filled-label-text-color: var(--md-sys-color-on-primary);
+  --mat-button-filled-state-layer-color: var(--md-sys-color-on-primary);
+  --mat-button-filled-ripple-color: color-mix(in srgb, var(--md-sys-color-on-primary) 16%, transparent);
+  --mat-button-outlined-label-text-color: var(--md-sys-color-primary);
+  --mat-button-outlined-state-layer-color: var(--md-sys-color-primary);
+  --mat-button-outlined-ripple-color: color-mix(in srgb, var(--md-sys-color-primary) 16%, transparent);
+  --mat-button-tonal-container-color: var(--md-sys-color-primary-container);
+  --mat-button-tonal-label-text-color: var(--md-sys-color-on-primary-container);
+  --mat-fab-small-container-color: var(--md-sys-color-primary-container);
+  --mat-fab-small-foreground-color: var(--md-sys-color-on-primary-container);
+  --mat-icon-button-icon-color: var(--md-sys-color-primary);
+  --mat-card-filled-container-color: var(--md-sys-color-surface-container);
+  --mat-card-outlined-container-color: var(--md-sys-color-surface);
 }
 
 .speaker {
@@ -135,6 +150,10 @@
   transform-origin: 50% 82%;
 }
 
+.app-closing .home-screen {
+  animation: home-return 280ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
 .app-opening .app-screen > *,
 .app-opening .snake-screen > * {
   animation: screen-content-rise 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
@@ -154,6 +173,7 @@
 .app-screen,
 .snake-screen {
   height: 100%;
+  box-sizing: border-box;
   min-width: 0;
   min-height: 0;
   display: flex;
@@ -163,7 +183,10 @@
 
 .home-screen,
 .app-screen {
-  overflow: visible;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 4px 5px 14px;
+  scroll-padding: 16px 5px 60px;
   scrollbar-width: thin;
 }
 
@@ -197,10 +220,12 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
-  height: 100%
+  height: 100%;
+  padding: 4px;
 }
 
 .app-tile {
+  box-sizing: border-box;
   min-height: 82px;
   border: 0;
   border-radius: 24px;
@@ -258,8 +283,8 @@
 }
 
 .app-tile:hover {
-  transform: translateY(-2px) scale(1.4);
-  box-shadow: var(--mat-sys-level2), inset 0 0 0 1px var(--md-sys-color-outline-variant);
+  transform: translateY(-2px) scale(1.02);
+  // box-shadow: var(--mat-sys-level2), inset 0 0 0 1px var(--md-sys-color-outline-variant);
 }
 
 .app-tile mat-icon {
@@ -340,13 +365,27 @@
   font: var(--mat-sys-body-small);
 }
 
+.dialer {
+  position: relative;
+}
+
+.dialer-fab {
+  position: absolute;
+  right: 4px;
+  bottom: 8px;
+  z-index: 1;
+  box-shadow: var(--mat-sys-level3);
+}
+
 .list {
   display: flex;
   flex-direction: column;
   gap: 7px;
+  padding: 4px;
 }
 
 .row {
+  box-sizing: border-box;
   width: 100%;
   min-height: 56px;
   border: 0;
@@ -374,6 +413,19 @@
 
 .row.active {
   transform: translateX(3px) scale(1.01);
+}
+
+.call-row {
+  grid-template-columns: 1fr 34px;
+  padding: 10px 12px;
+}
+
+.call-row .call-direction-icon {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  justify-self: end;
+  align-self: center;
+  color: var(--md-sys-color-primary);
 }
 
 .row mat-icon {
@@ -471,30 +523,102 @@
   position: sticky;
   bottom: 0;
   display: grid;
-  grid-template-columns: 1fr 44px 44px;
+  grid-template-columns: minmax(0, 1fr) 38px 38px;
   gap: 8px;
-  align-items: center;
+  align-items: end;
   padding: 8px 0 0;
   background: var(--screen-bg, var(--md-sys-color-surface));
   z-index: 1;
 }
 
-.message-composer mat-form-field,
-.alarm-editor mat-form-field,
-.app-screen > mat-form-field {
+.phone-field {
+  position: relative;
   width: 100%;
+  min-width: 0;
+  display: grid;
+  gap: 5px;
+  box-sizing: border-box;
+  border: 1px solid var(--md-sys-color-outline-variant);
+  border-radius: 14px;
+  padding: 9px 10px 10px;
+  color: var(--md-sys-color-on-surface);
+  background: color-mix(in srgb, var(--md-sys-color-surface-container-low) 74%, var(--md-sys-color-primary-container));
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background 160ms ease,
+    transform 160ms ease;
+}
+
+.phone-field span {
+  justify-self: start;
+  padding: 0 4px;
+  color: var(--md-sys-color-on-surface-variant);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.phone-field:focus-within {
+  border-color: var(--md-sys-color-primary);
+  background: var(--md-sys-color-surface);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--md-sys-color-primary) 18%, transparent);
+}
+
+.composer-field {
+  min-height: 82px;
+  border-radius: 18px;
+}
+
+.phone-frame .mat-mdc-unelevated-button:not(:disabled) {
+  color: var(--md-sys-color-on-primary);
+  background-color: var(--md-sys-color-primary);
+}
+
+.phone-frame .mat-tonal-button:not(:disabled) {
+  color: var(--md-sys-color-on-primary-container);
+  background-color: var(--md-sys-color-primary-container);
+}
+
+.phone-frame .mat-mdc-mini-fab:not(:disabled) {
+  color: var(--md-sys-color-on-primary-container);
+  background-color: var(--md-sys-color-primary-container);
+}
+
+.phone-frame .mat-mdc-icon-button:not(:disabled) {
+  color: var(--md-sys-color-primary);
 }
 
 input,
 textarea {
   width: 100%;
+  min-width: 0;
   box-sizing: border-box;
-  border: 1px solid var(--md-sys-color-outline-variant);
-  border-radius: var(--md-sys-shape-corner-medium);
-  padding: 9px;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
   font: inherit;
   color: inherit;
-  background: var(--md-sys-color-surface-container-low);
+  background: transparent;
+  outline: 0;
+}
+
+.phone-field input,
+.phone-field textarea {
+  min-height: 28px;
+  line-height: 1.35;
+}
+
+.phone-field textarea {
+  display: block;
+  min-height: 46px;
+}
+
+.message-composer .mat-mdc-icon-button {
+  width: 38px;
+  height: 38px;
+  padding: 7px;
 }
 
 button:focus,
@@ -502,6 +626,12 @@ input:focus,
 textarea:focus,
 label:focus,
 [data-dpad-focus]:focus {
+  outline: 0;
+}
+
+button:focus-visible,
+label:focus-visible,
+[data-dpad-focus]:focus-visible {
   outline: 3px solid var(--md-sys-color-primary);
   outline-offset: 2px;
 }
@@ -519,7 +649,7 @@ textarea {
   display: grid;
   grid-template-columns: 104px 1fr 42px;
   gap: 8px;
-  align-items: center;
+  align-items: end;
 }
 
 .clock-face {
@@ -872,6 +1002,20 @@ canvas {
   }
 }
 
+@keyframes home-return {
+  0% {
+    opacity: 0.72;
+    filter: blur(2px);
+    transform: scale(0.96);
+  }
+
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+  }
+}
+
 @keyframes tile-enter {
   0% {
     opacity: 0;
@@ -919,19 +1063,6 @@ canvas {
   }
 }
 
-.phone-frame[data-theme='dark'] {
-  --screen-bg: #111827;
-  --screen-fg: #e5e7eb;
-  --chrome: rgba(2, 6, 23, 0.86);
-  --md-sys-color-surface: #111827;
-  --md-sys-color-surface-container-low: #1f2937;
-  --md-sys-color-surface-container: #263244;
-  --md-sys-color-surface-container-high: #334155;
-  --md-sys-color-on-surface: #e5e7eb;
-  --md-sys-color-on-surface-variant: #cbd5e1;
-  --md-sys-color-outline-variant: #475569;
-}
-
 .phone-frame[data-theme='dark'] .row,
 .phone-frame[data-theme='dark'] .app-tile,
 .phone-frame[data-theme='dark'] input,
@@ -950,6 +1081,12 @@ canvas {
   --mat-sys-on-tertiary: #ffffff;
   --mat-sys-tertiary-container: #ffdad4;
   --mat-sys-on-tertiary-container: #410001;
+  --mat-sys-surface: #fff8f9;
+  --mat-sys-surface-container-low: #fff1f4;
+  --mat-sys-surface-container: #f8e8ee;
+  --mat-sys-surface-container-high: #f0dfe6;
+  --mat-sys-surface-container-highest: #ead8df;
+  --mat-sys-outline-variant: #dcc0c9;
   --md-sys-color-primary: #ba005c;
   --md-sys-color-on-primary: #ffffff;
   --md-sys-color-primary-container: #ffd9e2;
@@ -958,6 +1095,12 @@ canvas {
   --md-sys-color-on-tertiary: #ffffff;
   --md-sys-color-tertiary-container: #ffdad4;
   --md-sys-color-on-tertiary-container: #410001;
+  --md-sys-color-surface: #fff8f9;
+  --md-sys-color-surface-container-low: #fff1f4;
+  --md-sys-color-surface-container: #f8e8ee;
+  --md-sys-color-surface-container-high: #f0dfe6;
+  --md-sys-color-surface-container-highest: #ead8df;
+  --md-sys-color-outline-variant: #dcc0c9;
 }
 
 .phone-frame[data-color-theme='azure'] {
@@ -969,6 +1112,12 @@ canvas {
   --mat-sys-on-tertiary: #ffffff;
   --mat-sys-tertiary-container: #9cf1f0;
   --mat-sys-on-tertiary-container: #002020;
+  --mat-sys-surface: #f8fbff;
+  --mat-sys-surface-container-low: #eff5ff;
+  --mat-sys-surface-container: #e4eefc;
+  --mat-sys-surface-container-high: #d9e6f6;
+  --mat-sys-surface-container-highest: #cfdfef;
+  --mat-sys-outline-variant: #bbc7d9;
   --md-sys-color-primary: #005cbb;
   --md-sys-color-on-primary: #ffffff;
   --md-sys-color-primary-container: #d7e3ff;
@@ -977,6 +1126,12 @@ canvas {
   --md-sys-color-on-tertiary: #ffffff;
   --md-sys-color-tertiary-container: #9cf1f0;
   --md-sys-color-on-tertiary-container: #002020;
+  --md-sys-color-surface: #f8fbff;
+  --md-sys-color-surface-container-low: #eff5ff;
+  --md-sys-color-surface-container: #e4eefc;
+  --md-sys-color-surface-container-high: #d9e6f6;
+  --md-sys-color-surface-container-highest: #cfdfef;
+  --md-sys-color-outline-variant: #bbc7d9;
 }
 
 .phone-frame[data-color-theme='violet'] {
@@ -988,6 +1143,12 @@ canvas {
   --mat-sys-on-tertiary: #ffffff;
   --mat-sys-tertiary-container: #e9ddff;
   --mat-sys-on-tertiary-container: #22005d;
+  --mat-sys-surface: #fffbff;
+  --mat-sys-surface-container-low: #f9f1ff;
+  --mat-sys-surface-container: #f0e8f8;
+  --mat-sys-surface-container-high: #e8e0f0;
+  --mat-sys-surface-container-highest: #ded6e8;
+  --mat-sys-outline-variant: #cbc0d4;
   --md-sys-color-primary: #7b1fa2;
   --md-sys-color-on-primary: #ffffff;
   --md-sys-color-primary-container: #f3daff;
@@ -996,6 +1157,12 @@ canvas {
   --md-sys-color-on-tertiary: #ffffff;
   --md-sys-color-tertiary-container: #e9ddff;
   --md-sys-color-on-tertiary-container: #22005d;
+  --md-sys-color-surface: #fffbff;
+  --md-sys-color-surface-container-low: #f9f1ff;
+  --md-sys-color-surface-container: #f0e8f8;
+  --md-sys-color-surface-container-high: #e8e0f0;
+  --md-sys-color-surface-container-highest: #ded6e8;
+  --md-sys-color-outline-variant: #cbc0d4;
 }
 
 .phone-frame[data-color-theme='green'] {
@@ -1007,6 +1174,12 @@ canvas {
   --mat-sys-on-tertiary: #ffffff;
   --mat-sys-tertiary-container: #bcebf0;
   --mat-sys-on-tertiary-container: #002023;
+  --mat-sys-surface: #f8fff8;
+  --mat-sys-surface-container-low: #eff9ef;
+  --mat-sys-surface-container: #e6f2e6;
+  --mat-sys-surface-container-high: #dcebdd;
+  --mat-sys-surface-container-highest: #d2e3d3;
+  --mat-sys-outline-variant: #b9cbb9;
   --md-sys-color-primary: #006d3c;
   --md-sys-color-on-primary: #ffffff;
   --md-sys-color-primary-container: #b7f7cb;
@@ -1015,6 +1188,34 @@ canvas {
   --md-sys-color-on-tertiary: #ffffff;
   --md-sys-color-tertiary-container: #bcebf0;
   --md-sys-color-on-tertiary-container: #002023;
+  --md-sys-color-surface: #f8fff8;
+  --md-sys-color-surface-container-low: #eff9ef;
+  --md-sys-color-surface-container: #e6f2e6;
+  --md-sys-color-surface-container-high: #dcebdd;
+  --md-sys-color-surface-container-highest: #d2e3d3;
+  --md-sys-color-outline-variant: #b9cbb9;
+}
+
+.phone-frame[data-theme='dark'] {
+  --screen-bg: #111827;
+  --screen-fg: #e5e7eb;
+  --chrome: rgba(2, 6, 23, 0.86);
+  --mat-sys-surface: #111827;
+  --mat-sys-surface-container-low: #1f2937;
+  --mat-sys-surface-container: #263244;
+  --mat-sys-surface-container-high: #334155;
+  --mat-sys-surface-container-highest: #3f4b5f;
+  --mat-sys-on-surface: #e5e7eb;
+  --mat-sys-on-surface-variant: #cbd5e1;
+  --mat-sys-outline-variant: #475569;
+  --md-sys-color-surface: #111827;
+  --md-sys-color-surface-container-low: #1f2937;
+  --md-sys-color-surface-container: #263244;
+  --md-sys-color-surface-container-high: #334155;
+  --md-sys-color-surface-container-highest: #3f4b5f;
+  --md-sys-color-on-surface: #e5e7eb;
+  --md-sys-color-on-surface-variant: #cbd5e1;
+  --md-sys-color-outline-variant: #475569;
 }
 
 .phone-frame[data-theme='contrast'] {

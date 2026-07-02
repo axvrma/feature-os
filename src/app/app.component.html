@@ -54,31 +54,35 @@
             </div>
             <ng-container *ngIf="phoneView === 'dialer'; else phoneLogs">
               <mat-card appearance="filled" class="dial-display">{{ dialNumber || 'Enter number' }}</mat-card>
-              <p class="dial-hint">Use the hardware keypad. Left soft key opens call logs.</p>
-              <button mat-flat-button color="primary" type="button" data-dpad-focus (focus)="focusControl(0)" (click)="press('call')">
+              <p class="dial-hint">Use the hardware keypad to enter a number.</p>
+              <button matButton="filled" type="button" data-dpad-focus (focus)="focusControl(0)" (click)="press('call')">
                 <mat-icon>call</mat-icon>
                 Call
               </button>
               <p class="alert" *ngIf="alertText">{{ alertText }}</p>
             </ng-container>
             <ng-template #phoneLogs>
-              <p class="section-label">Call logs</p>
               <div class="list" *ngIf="data.callLog.length; else noCallLogs">
                 <button
                   type="button"
-                  class="row"
+                  class="row call-row"
                   *ngFor="let call of data.callLog; let i = index; trackBy: idTrackBy"
                   [class.active]="phoneLogIndex === i"
                   (click)="phoneLogIndex = i; dialNumber = call.phone; press('call')"
                 >
-                  <mat-icon>{{ call.direction === 'missed' ? 'phone_missed' : 'phone_callback' }}</mat-icon>
                   <span>{{ call.name }}</span>
                   <small>{{ call.phone }} · {{ call.at | date: 'short' }}</small>
+                  <mat-icon class="call-direction-icon" [attr.aria-label]="callDirectionLabel(call.direction)" [title]="callDirectionLabel(call.direction)">
+                    {{ callDirectionIcon(call.direction) }}
+                  </mat-icon>
                 </button>
               </div>
               <ng-template #noCallLogs>
                 <p class="empty-state">No call logs yet.</p>
               </ng-template>
+              <button class="dialer-fab" matMiniFab type="button" aria-label="Open dialer" (click)="openPhoneDialer()">
+                <mat-icon>dialpad</mat-icon>
+              </button>
             </ng-template>
           </section>
 
@@ -109,7 +113,7 @@
                 <mat-icon>account_circle</mat-icon>
                 <h2>{{ selectedContact?.name }}</h2>
                 <p>{{ selectedContact?.phone }}</p>
-                <button mat-flat-button color="primary" type="button" data-dpad-focus (focus)="focusControl(0)" (click)="press('call')">
+                <button matButton="filled" type="button" data-dpad-focus (focus)="focusControl(0)" (click)="press('call')">
                   <mat-icon>call</mat-icon>
                   Call
                 </button>
@@ -145,20 +149,18 @@
                   </div>
                 </div>
                 <div class="message-composer">
-                  <mat-form-field appearance="outline" subscriptSizing="dynamic">
-                    <mat-label>Reply</mat-label>
+                  <label class="phone-field composer-field">
+                    <span>Reply</span>
                     <textarea
-                      matInput
                       data-dpad-focus
                       (focus)="focusControl(0)"
                       [(ngModel)]="draftMessage"
                       rows="2"
                       aria-label="Reply message"
                     ></textarea>
-                  </mat-form-field>
+                  </label>
                   <button
-                    mat-icon-button
-                    color="primary"
+                    matIconButton
                     type="button"
                     data-dpad-focus
                     (focus)="focusControl(1)"
@@ -168,7 +170,7 @@
                     <mat-icon>send</mat-icon>
                   </button>
                   <button
-                    mat-icon-button
+                    matIconButton
                     type="button"
                     data-dpad-focus
                     (focus)="focusControl(2)"
@@ -188,15 +190,15 @@
               <small>{{ now | date: 'fullDate' }}</small>
             </mat-card>
             <div class="alarm-editor">
-              <mat-form-field appearance="outline" subscriptSizing="dynamic">
-                <mat-label>Time</mat-label>
-                <input matInput type="time" data-dpad-focus (focus)="focusControl(0)" [(ngModel)]="newAlarmTime" aria-label="Alarm time" />
-              </mat-form-field>
-              <mat-form-field appearance="outline" subscriptSizing="dynamic">
-                <mat-label>Label</mat-label>
-                <input matInput type="text" data-dpad-focus (focus)="focusControl(1)" [(ngModel)]="newAlarmLabel" aria-label="Alarm label" />
-              </mat-form-field>
-              <button mat-mini-fab color="primary" type="button" data-dpad-focus (focus)="focusControl(2)" (click)="press('soft-left')" aria-label="Add alarm">
+              <label class="phone-field">
+                <span>Time</span>
+                <input type="time" data-dpad-focus (focus)="focusControl(0)" [(ngModel)]="newAlarmTime" aria-label="Alarm time" />
+              </label>
+              <label class="phone-field">
+                <span>Label</span>
+                <input type="text" data-dpad-focus (focus)="focusControl(1)" [(ngModel)]="newAlarmLabel" aria-label="Alarm label" />
+              </label>
+              <button matMiniFab type="button" data-dpad-focus (focus)="focusControl(2)" (click)="press('soft-left')" aria-label="Add alarm">
                 <mat-icon>add</mat-icon>
               </button>
             </div>
@@ -235,21 +237,21 @@
                   <small>{{ note.body }}</small>
                 </button>
               </div>
-              <button mat-flat-button color="primary" type="button" data-dpad-focus (focus)="focusControl(0)" (click)="press('soft-left')">
+              <button matButton="filled" type="button" data-dpad-focus (focus)="focusControl(0)" (click)="press('soft-left')">
                 <mat-icon>add</mat-icon>
                 New note
               </button>
             </ng-container>
             <ng-template #noteEditor>
-              <mat-form-field appearance="outline" subscriptSizing="dynamic">
-                <mat-label>Title</mat-label>
-                <input matInput class="title-input" data-dpad-focus (focus)="focusControl(0)" [(ngModel)]="noteDraftTitle" aria-label="Note title" />
-              </mat-form-field>
-              <mat-form-field appearance="outline" subscriptSizing="dynamic">
-                <mat-label>Note</mat-label>
-                <textarea matInput data-dpad-focus (focus)="focusControl(1)" [(ngModel)]="noteDraftBody" rows="7" aria-label="Note body"></textarea>
-              </mat-form-field>
-              <button mat-flat-button color="primary" type="button" data-dpad-focus (focus)="focusControl(2)" (click)="press('soft-left')">
+              <label class="phone-field">
+                <span>Title</span>
+                <input class="title-input" data-dpad-focus (focus)="focusControl(0)" [(ngModel)]="noteDraftTitle" aria-label="Note title" />
+              </label>
+              <label class="phone-field">
+                <span>Note</span>
+                <textarea data-dpad-focus (focus)="focusControl(1)" [(ngModel)]="noteDraftBody" rows="7" aria-label="Note body"></textarea>
+              </label>
+              <button matButton="filled" type="button" data-dpad-focus (focus)="focusControl(2)" (click)="press('soft-left')">
                 <mat-icon>save</mat-icon>
                 Save
               </button>

@@ -56,7 +56,7 @@ export interface CallLogEntry {
   name: string;
   phone: string;
   at: string;
-  direction: 'outgoing' | 'missed';
+  direction: 'dialled' | 'received' | 'missed' | 'rejected' | 'outgoing';
 }
 
 export interface MessageThread {

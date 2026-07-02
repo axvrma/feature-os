@@ -126,11 +126,13 @@ export class AppComponent implements OnInit, OnDestroy {
   private snakeTimer?: number;
   private saveTimer?: number;
   private transitionTimer?: number;
+  private activeScrollTimer?: number;
   private lastFocusedControl?: HTMLElement;
 
   constructor(
     private readonly storage: OsStorageService,
     public readonly keypad: KeypadService,
+    private readonly host: ElementRef<HTMLElement>,
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -148,6 +150,7 @@ export class AppComponent implements OnInit, OnDestroy {
     window.clearInterval(this.snakeTimer);
     window.clearTimeout(this.saveTimer);
     window.clearTimeout(this.transitionTimer);
+    window.clearTimeout(this.activeScrollTimer);
     this.trackUrls.forEach((url) => URL.revokeObjectURL(url));
   }
 
@@ -242,7 +245,8 @@ export class AppComponent implements OnInit, OnDestroy {
       this.listIndex.settings = 0;
     }
     if (app === 'dialer') {
-      this.phoneView = 'dialer';
+      this.phoneView = 'logs';
+      this.dialNumber = '';
       this.phoneLogIndex = 0;
     }
     if (app === 'snake') {
@@ -261,6 +265,7 @@ export class AppComponent implements OnInit, OnDestroy {
     if (this.activeScreen === 'home') return;
     window.clearTimeout(this.transitionTimer);
     this.screenTransition = 'closing';
+    this.activeScreen = 'home';
     this.alertText = '';
     this.controlFocusIndex = 0;
     this.selectedContact = undefined;
@@ -268,7 +273,6 @@ export class AppComponent implements OnInit, OnDestroy {
     this.selectedNote = undefined;
     this.stopSnake();
     this.transitionTimer = window.setTimeout(() => {
-      this.activeScreen = 'home';
       this.screenTransition = 'idle';
     }, 280);
   }
@@ -285,6 +289,34 @@ export class AppComponent implements OnInit, OnDestroy {
 
   latestMessage(thread: MessageThread): string {
     return thread.messages.at(-1)?.body ?? 'No messages yet';
+  }
+
+  openPhoneDialer(initialNumber = ''): void {
+    this.openApp('dialer');
+    this.phoneView = 'dialer';
+    this.dialNumber = initialNumber;
+  }
+
+  callDirectionIcon(direction: string): string {
+    const icons: Record<string, string> = {
+      dialled: 'call_made',
+      outgoing: 'call_made',
+      received: 'call_received',
+      missed: 'phone_missed',
+      rejected: 'call_end',
+    };
+    return icons[direction] ?? 'call';
+  }
+
+  callDirectionLabel(direction: string): string {
+    const labels: Record<string, string> = {
+      dialled: 'Dialled call',
+      outgoing: 'Dialled call',
+      received: 'Received call',
+      missed: 'Missed call',
+      rejected: 'Rejected call',
+    };
+    return labels[direction] ?? 'Call';
   }
 
   addTrack(event: Event): void {
@@ -362,6 +394,7 @@ export class AppComponent implements OnInit, OnDestroy {
     }
     if (this.isNumeric(key)) {
       this.handleNumber(key);
+      this.scheduleActiveScroll();
       return;
     }
 
@@ -397,6 +430,19 @@ export class AppComponent implements OnInit, OnDestroy {
         this.handleSettingsKey(key);
         break;
     }
+    this.scheduleActiveScroll();
+  }
+
+  private scheduleActiveScroll(): void {
+    window.clearTimeout(this.activeScrollTimer);
+    this.activeScrollTimer = window.setTimeout(() => {
+      const screenBody = this.host.nativeElement.querySelector<HTMLElement>('.screen-body');
+      const target =
+        screenBody?.querySelector<HTMLElement>('.active') ??
+        (screenBody?.contains(document.activeElement) ? (document.activeElement as HTMLElement) : undefined);
+
+      target?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+    }, 0);
   }
 
   private handleHomeKey(key: KeypadKey): void {
@@ -425,7 +471,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.startCall(log.phone, log.name);
       }
       if (key === 'back' || key === 'soft-right') {
-        this.phoneView = 'dialer';
+        this.goHome();
       }
       return;
     }
@@ -446,8 +492,7 @@ export class AppComponent implements OnInit, OnDestroy {
     if (key === 'soft-left') {
       const contact = this.selectedContact ?? contacts[this.listIndex.contacts];
       if (contact) {
-        this.openApp('dialer');
-        this.dialNumber = contact.phone;
+        this.openPhoneDialer(contact.phone);
         this.alertText = `Ready to call ${contact.name}`;
       } else {
         this.alertText = 'No contact selected.';
@@ -618,7 +663,19 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   private handleNumber(key: KeypadKey): void {
-    if (this.activeScreen === 'dialer' && this.phoneView === 'dialer') this.dialNumber += key;
+    if (this.activeScreen === 'home') {
+      this.openPhoneDialer(key);
+      return;
+    }
+    if (this.activeScreen === 'dialer') {
+      if (this.phoneView === 'logs') {
+        this.phoneView = 'dialer';
+        this.dialNumber = key;
+      } else {
+        this.dialNumber += key;
+      }
+      return;
+    }
     if (this.activeScreen === 'contacts' && this.isNumeric(key)) {
       this.contactsQuery += key;
       this.listIndex.contacts = 0;
@@ -641,7 +698,7 @@ export class AppComponent implements OnInit, OnDestroy {
       name: displayName,
       phone,
       at: new Date().toISOString(),
-      direction: 'outgoing',
+      direction: 'dialled',
     });
     this.alertText = `Calling ${this.callingNumber}`;
     this.queueSave();

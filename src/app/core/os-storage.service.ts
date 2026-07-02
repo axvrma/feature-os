@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AlarmItem, Contact, MessageThread, NoteItem, OsData } from './os-models';
+import { AlarmItem, CallLogEntry, Contact, MessageThread, NoteItem, OsData } from './os-models';
 
 const DB_NAME = 'feature-phone-os';
 const STORE_NAME = 'state';
@@ -16,6 +16,8 @@ export class OsStorageService {
     if (stored?.settings?.seeded) {
       stored.settings.launcherActions ??= { left: 'profiles', right: 'settings' };
       stored.settings.colorTheme ??= 'cherry';
+      stored.callLog ??= [];
+      this.ensureCallLogVariety(stored);
       await this.save(stored);
       return stored;
     }
@@ -68,6 +70,7 @@ export class OsStorageService {
       { id: crypto.randomUUID(), title: 'Groceries', body: 'Milk, coffee, rice', updatedAt: now },
       { id: crypto.randomUUID(), title: 'Idea', body: 'Make keypad navigation feel instant.', updatedAt: now },
     ];
+    const callLog = this.demoCallLog();
 
     return {
       settings: {
@@ -78,13 +81,38 @@ export class OsStorageService {
         seeded: true,
       },
       contacts,
-      callLog: [],
+      callLog,
       threads,
       alarms,
       notes,
       tracks: [],
       highScore: 0,
     };
+  }
+
+  private ensureCallLogVariety(data: OsData): void {
+    if (data.callLog.length >= 10) return;
+
+    const current = new Set(data.callLog.map((call) => `${call.phone}:${call.direction}`));
+    const additions = this.demoCallLog().filter((call) => !current.has(`${call.phone}:${call.direction}`));
+    data.callLog.push(...additions.slice(0, 10 - data.callLog.length));
+  }
+
+  private demoCallLog(): CallLogEntry[] {
+    const minutesAgo = (minutes: number) => new Date(Date.now() - minutes * 60_000).toISOString();
+
+    return [
+      { id: crypto.randomUUID(), name: 'Asha Kumar', phone: '9876501001', at: minutesAgo(12), direction: 'received' },
+      { id: crypto.randomUUID(), name: 'Tony Stark', phone: '5550102002', at: minutesAgo(36), direction: 'dialled' },
+      { id: crypto.randomUUID(), name: 'Maya Rao', phone: '8884400300', at: minutesAgo(74), direction: 'missed' },
+      { id: crypto.randomUUID(), name: 'Sam Wilson', phone: '7771204560', at: minutesAgo(132), direction: 'rejected' },
+      { id: crypto.randomUUID(), name: 'Mom', phone: '919876543210', at: minutesAgo(260), direction: 'received' },
+      { id: crypto.randomUUID(), name: 'Delivery Desk', phone: '1800123456', at: minutesAgo(420), direction: 'missed' },
+      { id: crypto.randomUUID(), name: 'Office', phone: '04044556677', at: minutesAgo(680), direction: 'dialled' },
+      { id: crypto.randomUUID(), name: 'Unknown', phone: '919900112233', at: minutesAgo(930), direction: 'rejected' },
+      { id: crypto.randomUUID(), name: 'Riya Sen', phone: '9988776655', at: minutesAgo(1260), direction: 'received' },
+      { id: crypto.randomUUID(), name: 'Cab Driver', phone: '08040404040', at: minutesAgo(1560), direction: 'missed' },
+    ];
   }
 
   private async get<T>(key: string): Promise<T | undefined> {
