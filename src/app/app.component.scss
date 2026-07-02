@@ -191,6 +191,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
+  height: 100%
 }
 
 .app-tile {
@@ -204,7 +205,7 @@
   gap: 5px;
   color: var(--md-sys-color-on-surface);
   background: var(--md-sys-color-surface-container-low);
-  box-shadow: var(--mat-sys-level1), inset 0 0 0 1px var(--md-sys-color-outline-variant);
+  // box-shadow: var(--mat-sys-level1), inset 0 0 0 1px var(--md-sys-color-outline-variant);
   animation: tile-enter 360ms cubic-bezier(0.16, 1, 0.3, 1) both;
   transition:
     transform 180ms cubic-bezier(0.2, 0, 0, 1),
@@ -212,6 +213,10 @@
     background 180ms ease,
     box-shadow 180ms ease;
   will-change: transform;
+
+  span {
+        margin-top: 6px;
+  }
 }
 
 .app-tile:nth-child(2) {
@@ -247,7 +252,7 @@
 }
 
 .app-tile:hover {
-  transform: translateY(-2px) scale(1.02);
+  transform: translateY(-2px) scale(1.4);
   box-shadow: var(--mat-sys-level2), inset 0 0 0 1px var(--md-sys-color-outline-variant);
 }
 
@@ -264,7 +269,7 @@
 
 .app-tile:hover mat-icon,
 .app-tile.active mat-icon {
-  transform: scale(1.08);
+  transform: scale(1.4);
   border-radius: 16px;
 }
 
