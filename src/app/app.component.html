@@ -15,7 +15,11 @@
         </span>
       </header>
 
-      <main class="screen-body">
+      <main
+        class="screen-body"
+        [class.app-opening]="screenTransition === 'opening'"
+        [class.app-closing]="screenTransition === 'closing'"
+      >
         <section *ngIf="loading" class="empty-state">
           <mat-icon>hourglass_empty</mat-icon>
           <p>Starting OS...</p>

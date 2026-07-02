@@ -60,6 +60,7 @@
   width: 100%;
   height: 520px;
   overflow: hidden;
+  isolation: isolate;
   border-radius: var(--md-sys-shape-corner-extra-large);
   background: var(--screen-bg, var(--md-sys-color-surface));
   color: var(--screen-fg, var(--md-sys-color-on-surface));
@@ -115,6 +116,34 @@
   scrollbar-width: thin;
 }
 
+.app-opening .app-screen,
+.app-opening .snake-screen {
+  animation: ios-app-open 360ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  transform-origin: 50% 82%;
+}
+
+.app-closing .app-screen,
+.app-closing .snake-screen {
+  pointer-events: none;
+  animation: ios-app-close 280ms cubic-bezier(0.32, 0, 0.67, 0) both;
+  transform-origin: 50% 82%;
+}
+
+.app-opening .app-screen > *,
+.app-opening .snake-screen > * {
+  animation: screen-content-rise 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.app-opening .app-screen > *:nth-child(2),
+.app-opening .snake-screen > *:nth-child(2) {
+  animation-delay: 30ms;
+}
+
+.app-opening .app-screen > *:nth-child(3),
+.app-opening .snake-screen > *:nth-child(3) {
+  animation-delay: 55ms;
+}
+
 .home-screen,
 .app-screen,
 .snake-screen {
@@ -140,6 +169,7 @@
     linear-gradient(135deg, var(--mat-sys-primary), var(--mat-sys-tertiary)),
     var(--mat-sys-primary);
   box-shadow: var(--mat-sys-level2);
+  animation: home-card-enter 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .home-hero h1 {
@@ -175,6 +205,50 @@
   color: var(--md-sys-color-on-surface);
   background: var(--md-sys-color-surface-container-low);
   box-shadow: var(--mat-sys-level1), inset 0 0 0 1px var(--md-sys-color-outline-variant);
+  animation: tile-enter 360ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  transition:
+    transform 180ms cubic-bezier(0.2, 0, 0, 1),
+    filter 180ms ease,
+    background 180ms ease,
+    box-shadow 180ms ease;
+  will-change: transform;
+}
+
+.app-tile:nth-child(2) {
+  animation-delay: 35ms;
+}
+
+.app-tile:nth-child(3) {
+  animation-delay: 70ms;
+}
+
+.app-tile:nth-child(4) {
+  animation-delay: 105ms;
+}
+
+.app-tile:nth-child(5) {
+  animation-delay: 140ms;
+}
+
+.app-tile:nth-child(6) {
+  animation-delay: 175ms;
+}
+
+.app-tile:nth-child(7) {
+  animation-delay: 210ms;
+}
+
+.app-tile:nth-child(8) {
+  animation-delay: 245ms;
+}
+
+.app-tile:nth-child(9) {
+  animation-delay: 280ms;
+}
+
+.app-tile:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: var(--mat-sys-level2), inset 0 0 0 1px var(--md-sys-color-outline-variant);
 }
 
 .app-tile mat-icon {
@@ -185,6 +259,13 @@
   border-radius: 18px;
   color: white;
   background: var(--tone);
+  transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1), border-radius 220ms ease;
+}
+
+.app-tile:hover mat-icon,
+.app-tile.active mat-icon {
+  transform: scale(1.08);
+  border-radius: 16px;
 }
 
 .app-tile span {
@@ -201,6 +282,7 @@
   outline-offset: 2px;
   background: var(--mat-sys-primary-container);
   color: var(--mat-sys-on-primary-container);
+  transform: scale(1.02);
 }
 
 .selected {
@@ -226,6 +308,7 @@
   padding: 16px;
   background: var(--md-sys-color-surface-container);
   box-shadow: var(--mat-sys-level1);
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
 }
 
 .dial-display {
@@ -265,6 +348,19 @@
   color: inherit;
   background: var(--md-sys-color-surface-container-low);
   box-shadow: var(--mat-sys-level0), inset 0 0 0 1px var(--md-sys-color-outline-variant);
+  transition:
+    transform 170ms cubic-bezier(0.2, 0, 0, 1),
+    background 170ms ease,
+    box-shadow 170ms ease;
+}
+
+.row:hover {
+  transform: translateX(2px);
+  box-shadow: var(--mat-sys-level1), inset 0 0 0 1px var(--md-sys-color-outline-variant);
+}
+
+.row.active {
+  transform: translateX(3px) scale(1.01);
 }
 
 .row mat-icon {
@@ -304,6 +400,7 @@
 
 .alert {
   margin: 0;
+  animation: alert-pop 240ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .detail-card,
@@ -347,6 +444,7 @@
   border-radius: 20px 20px 20px 6px;
   padding: 8px 10px;
   background: var(--md-sys-color-surface-container-high);
+  animation: bubble-in 240ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .bubble.mine {
@@ -499,6 +597,12 @@ canvas {
   transition: transform 120ms ease, filter 120ms ease, box-shadow 120ms ease;
 }
 
+.phone-key:hover,
+.num-key:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.04);
+}
+
 .phone-key:active,
 .select-zone:active,
 .num-key:active {
@@ -575,6 +679,11 @@ canvas {
     inset 0 -12px 18px rgba(2, 6, 23, 0.38),
     0 7px 0 #020617,
     0 12px 18px rgba(2, 6, 23, 0.3);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.select-pad:hover {
+  transform: translateY(-1px);
 }
 
 .select-zone {
@@ -683,6 +792,118 @@ canvas {
   white-space: nowrap;
   --mat-button-tonal-container-shape: 14px;
   --mat-button-tonal-horizontal-padding: 18px;
+  transition: transform 180ms cubic-bezier(0.2, 0, 0, 1), filter 180ms ease;
+}
+
+.panel-actions button:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.02);
+}
+
+@keyframes ios-app-open {
+  0% {
+    opacity: 0;
+    border-radius: 42px;
+    filter: blur(8px);
+    transform: translateY(34px) scale(0.18);
+  }
+
+  58% {
+    opacity: 1;
+    filter: blur(0);
+  }
+
+  100% {
+    opacity: 1;
+    border-radius: 0;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes ios-app-close {
+  0% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    border-radius: 42px;
+    filter: blur(6px);
+    transform: translateY(38px) scale(0.2);
+  }
+}
+
+@keyframes screen-content-rise {
+  0% {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes home-card-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(-12px) scale(0.96);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes tile-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.92);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes alert-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(6px) scale(0.96);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes bubble-in {
+  0% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 1ms !important;
+  }
 }
 
 [data-theme='dark'] {

@@ -23,6 +23,7 @@ type ListApp = 'contacts' | 'messages' | 'clock' | 'notes' | 'music' | 'profiles
 type SettingsView = 'main' | 'theme' | 'theme-color' | 'launcher' | 'launcher-left' | 'launcher-right';
 type LauncherSide = 'left' | 'right';
 type PhoneView = 'dialer' | 'logs';
+type ScreenTransition = 'idle' | 'opening' | 'closing';
 
 interface SnakeState {
   running: boolean;
@@ -111,6 +112,7 @@ export class AppComponent implements OnInit, OnDestroy {
   phoneView: PhoneView = 'dialer';
   phoneLogIndex = 0;
   controlFocusIndex = 0;
+  screenTransition: ScreenTransition = 'idle';
   private lastT9Key?: KeypadKey;
   private lastT9At = 0;
   private lastT9Target?: string;
@@ -123,6 +125,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private clockTimer?: number;
   private snakeTimer?: number;
   private saveTimer?: number;
+  private transitionTimer?: number;
   private lastFocusedControl?: HTMLElement;
 
   constructor(
@@ -144,6 +147,7 @@ export class AppComponent implements OnInit, OnDestroy {
     window.clearInterval(this.clockTimer);
     window.clearInterval(this.snakeTimer);
     window.clearTimeout(this.saveTimer);
+    window.clearTimeout(this.transitionTimer);
     this.trackUrls.forEach((url) => URL.revokeObjectURL(url));
   }
 
@@ -227,7 +231,9 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   openApp(app: OsAppId): void {
+    window.clearTimeout(this.transitionTimer);
     this.activeScreen = app;
+    this.screenTransition = 'opening';
     this.alertText = '';
     this.controlFocusIndex = 0;
     this.focusIndex = this.apps.findIndex((entry) => entry.id === app);
@@ -246,16 +252,25 @@ export class AppComponent implements OnInit, OnDestroy {
     if (app === 'music') {
       this.selectedTrack = this.data?.tracks[this.listIndex.music];
     }
+    this.transitionTimer = window.setTimeout(() => {
+      this.screenTransition = 'idle';
+    }, 360);
   }
 
   goHome(): void {
-    this.activeScreen = 'home';
+    if (this.activeScreen === 'home') return;
+    window.clearTimeout(this.transitionTimer);
+    this.screenTransition = 'closing';
     this.alertText = '';
     this.controlFocusIndex = 0;
     this.selectedContact = undefined;
     this.selectedThread = undefined;
     this.selectedNote = undefined;
     this.stopSnake();
+    this.transitionTimer = window.setTimeout(() => {
+      this.activeScreen = 'home';
+      this.screenTransition = 'idle';
+    }, 280);
   }
 
   filteredContacts(): Contact[] {
