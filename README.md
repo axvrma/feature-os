@@ -1,27 +1,35 @@
-# NgFeatureOs
+# Feature OS
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.0.
+Angular Material feature-phone OS simulator with keypad navigation, offline local data, installable PWA output, and Netlify deployment config.
 
-## Development server
+## Runtime
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Angular 22 requires Node `22.22.3` or newer. This repo includes `.nvmrc` and `netlify.toml` so local and Netlify builds use a compatible runtime.
 
-## Code scaffolding
+```sh
+nvm use
+npm install
+npm start
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Features
 
-## Build
+- Home launcher with 3x3 keypad navigation.
+- Dialer, contacts with T9-style filtering, call log.
+- Messages with local threads and compose.
+- Clock with persistent alarms.
+- Notes with create/edit/save.
+- Local music import and playback.
+- Canvas Snake game controlled by the D-pad.
+- Profiles and themes persisted offline.
+- IndexedDB-backed data seeded on first launch.
+- PWA manifest, Angular service worker, and Netlify SPA fallback.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Verification
 
-## Running unit tests
+```sh
+npm run build
+npm test -- --watch=false --browsers=ChromeHeadless
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Keyboard shortcuts: arrows for D-pad, Enter for center, Escape or H for home/end, Q/E for soft keys, C for call, and number keys for dial/text input.

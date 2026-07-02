@@ -1,0 +1,18 @@
+{
+  "name": "Feature OS",
+  "short_name": "Feature OS",
+  "theme_color": "#0f172a",
+  "background_color": "#020617",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "description": "Offline installable Angular feature phone OS simulator.",
+  "icons": [
+    {
+      "src": "assets/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

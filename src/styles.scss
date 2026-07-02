@@ -1,15 +1,134 @@
-/* You can add global styles to this file, and also import other style files */
-
-@import "@angular/material/theming";
-@import "assets/theme/theme.scss";
-
-@include mat-core();
+@use '@angular/material' as mat;
 
 html,
 body {
   height: 100%;
 }
+
+html {
+  @include mat.theme((
+    color: (
+      primary: mat.$rose-palette,
+      tertiary: mat.$red-palette,
+      theme-type: color-scheme,
+    ),
+    typography: Roboto,
+    density: 0,
+  ));
+}
+
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  color-scheme: light;
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-medium);
+}
+
+button,
+input,
+textarea {
+  font-family: inherit;
+}
+
+body[data-theme='dark'] {
+  color-scheme: dark;
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+}
+
+body[data-color-theme='cherry'] {
+  @include mat.theme-overrides((
+    primary: #ba005c,
+    on-primary: #ffffff,
+    primary-container: #ffd9e2,
+    on-primary-container: #3f001b,
+    tertiary: #b3261e,
+    on-tertiary: #ffffff,
+    tertiary-container: #ffdad4,
+    on-tertiary-container: #410001,
+  ));
+}
+
+body[data-color-theme='azure'] {
+  @include mat.theme-overrides((
+    primary: #005cbb,
+    on-primary: #ffffff,
+    primary-container: #d7e3ff,
+    on-primary-container: #001b3f,
+    tertiary: #006a6a,
+    on-tertiary: #ffffff,
+    tertiary-container: #9cf1f0,
+    on-tertiary-container: #002020,
+  ));
+}
+
+body[data-color-theme='violet'] {
+  @include mat.theme-overrides((
+    primary: #7b1fa2,
+    on-primary: #ffffff,
+    primary-container: #f3daff,
+    on-primary-container: #2d004d,
+    tertiary: #6750a4,
+    on-tertiary: #ffffff,
+    tertiary-container: #e9ddff,
+    on-tertiary-container: #22005d,
+  ));
+}
+
+body[data-color-theme='green'] {
+  @include mat.theme-overrides((
+    primary: #006d3c,
+    on-primary: #ffffff,
+    primary-container: #b7f7cb,
+    on-primary-container: #00210f,
+    tertiary: #38656a,
+    on-tertiary: #ffffff,
+    tertiary-container: #bcebf0,
+    on-tertiary-container: #002023,
+  ));
+}
+
+body[data-theme='contrast'] {
+  color-scheme: dark;
+  background-color: #000;
+  color: #fff;
+
+  @include mat.theme-overrides((
+    primary: #ffff00,
+    on-primary: #000,
+    primary-container: #333300,
+    on-primary-container: #ffffcc,
+    surface: #000,
+    on-surface: #fff,
+    surface-container-low: #0b0b0b,
+    surface-container: #161616,
+    surface-container-high: #222,
+    on-surface-variant: #f2f2f2,
+    outline: #fff,
+    outline-variant: #a8a8a8,
+  ));
+}
+
+body[data-theme='classic'] {
+  color-scheme: light;
+  background-color: #d9f99d;
+  color: #102313;
+
+  @include mat.theme-overrides((
+    primary: #006d3c,
+    on-primary: #fff,
+    primary-container: #b7f7cb,
+    on-primary-container: #00210f,
+    tertiary: #38656a,
+    on-tertiary: #fff,
+    surface: #f8ffe8,
+    on-surface: #102313,
+    surface-container-low: #eff8db,
+    surface-container: #e7f0d3,
+    surface-container-high: #dfe9cb,
+    on-surface-variant: #3f4a38,
+    outline: #6f7a68,
+    outline-variant: #c0cbb8,
+  ));
 }
