@@ -40,7 +40,7 @@
   box-sizing: border-box;
   padding: 18px 18px 22px;
   border-radius: 36px;
-  background: linear-gradient(145deg, #26313d, #101824);
+  background: linear-gradient(145deg, #33459d, #1b2a6e);
   border-color: color-mix(in srgb, var(--mat-sys-outline) 42%, transparent);
   box-shadow: var(--mat-sys-level5);
 }
@@ -672,7 +672,7 @@ canvas {
   grid-template-rows: repeat(3, 1fr);
   padding: 8px;
   border-radius: 26px;
-  background: linear-gradient(180deg, #475569, #334155);
+  background: linear-gradient(180deg, #33459d, #1b2a6e);
   border: 3px solid #020617;
   box-shadow:
     inset 0 10px 12px rgba(255, 255, 255, 0.12),
