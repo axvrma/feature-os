@@ -1,0 +1,273 @@
+<main
+  class="workbench"
+  (pointerdown)="os.unlockAudio()"
+  [class.immersive]="os.data()?.settings?.immersive"
+>
+  <header class="brand">
+    <a href="./" aria-label="Feature OS home"
+      ><span class="brand-mark" aria-hidden="true">f<span>·</span></span
+      ><span>FEATURE <b>OS</b><small>THE LITTLE THINGS, RECONNECTED.</small></span></a
+    ><span class="edition">BROWSER PHONE / 2.0</span>
+  </header>
+  <section class="intro" aria-label="About Feature OS">
+    <span class="eyebrow"><i></i> LESS NOISE. MORE LIFE.</span>
+    <h1>A little more<br /><em>present.</em></h1>
+    <p>All the essentials.<br />None of the endless scroll.</p>
+    <div class="intro-rule"></div>
+    <p class="private-note">
+      A tiny phone. A private world.<br />Made for your browser, saved on your device.
+    </p>
+    <div class="desktop-actions">
+      <button (click)="pwa.install()">
+        {{ pwa.installAvailable() ? 'Install your phone ↗' : 'Take it with you ↗' }}</button
+      ><button class="quiet" (click)="open('settings')">Make it yours</button>
+    </div>
+  </section>
+  <section class="device-stage" aria-label="Interactive feature phone">
+    <div class="orbit orbit-one"></div>
+    <div class="orbit orbit-two"></div>
+    <div
+      class="device"
+      [attr.data-theme]="os.data()?.settings?.theme"
+      [attr.data-color]="os.data()?.settings?.colorTheme"
+      [class.large-text]="os.data()?.settings?.fontSize === 'large'"
+    >
+      <div class="device-top">
+        <span class="sensor"></span><span class="speaker"></span><span class="model">F / 02</span>
+      </div>
+      <div
+        class="screen"
+        [attr.data-wallpaper]="os.data()?.settings?.wallpaper"
+        aria-label="Phone screen"
+      >
+        <div class="status-bar">
+          <span class="status-time">{{ os.now() | date: 'HH:mm' }}</span
+          ><span class="status-right"
+            ><span [attr.aria-label]="pwa.online() ? 'Browser online' : 'Browser offline'">{{
+              pwa.online() ? 'ONLINE' : 'OFFLINE'
+            }}</span
+            ><span [attr.aria-label]="'Profile: ' + os.data()?.settings?.profile">{{
+              os.data()?.settings?.profile === 'Silent' ? '♪̸' : '♪'
+            }}</span
+            ><button
+              class="notification-indicator"
+              (click)="showNotifications.set(!showNotifications())"
+              [attr.aria-label]="'Notifications, ' + os.notifications().length"
+            >
+              ◉<span *ngIf="os.notifications().length">{{ os.notifications().length }}</span>
+            </button></span
+          >
+        </div>
+        @if (os.error()) {
+          <div class="recovery-screen stack">
+            <h2>Your data needs attention</h2>
+            <p class="error">{{ os.error() }}</p>
+            <button (click)="open('settings')" *ngIf="os.data()">Open settings</button
+            ><button (click)="os.reset()">Reset after recovery…</button>
+            <p class="hint">
+              Existing database and fallback copies have been retained. Use the recovery export
+              below before resetting.
+            </p>
+            <button (click)="recoveryExport()">Export recovery data</button>
+          </div>
+        } @else if (!os.data()) {
+          <div class="loading-screen" role="status">
+            <span class="brand-mark">f·</span>
+            <p>Opening your little world…</p>
+          </div>
+        } @else {
+          @if (showNotifications()) {
+            <div class="notification-list app-viewport stack">
+              <div class="app-heading">
+                <h2>Notifications</h2>
+                <button (click)="showNotifications.set(false)">Close</button>
+              </div>
+              @for (n of os.notifications(); track n.id) {
+                <div class="card">
+                  <strong>{{ n.title }}</strong>
+                  <p>{{ n.body }}</p>
+                  <small>{{ n.at | date: 'shortTime' }}</small>
+                </div>
+              } @empty {
+                <p class="empty">A quiet moment. No notifications.</p>
+              }
+              <button *ngIf="os.notifications().length" (click)="os.notifications.set([])">
+                Clear notifications
+              </button>
+            </div>
+          } @else if (nav.screen() === 'home') {
+            <div class="launcher app-viewport" aria-label="Application launcher">
+              <div class="home-clock">
+                <span>{{ os.now() | date: 'HH:mm' }}</span
+                ><small>{{ os.now() | date: 'EEEE, d MMMM' }}</small
+                ><span class="home-tag">YOUR OWN LITTLE WORLD</span>
+              </div>
+              <div class="app-grid" role="group" aria-label="Apps">
+                @for (app of apps; track app.id; let i = $index) {
+                  <button
+                    class="app-tile"
+                    [class.active]="nav.launcherIndex() === i"
+                    [attr.data-app-index]="i"
+                    [attr.aria-label]="app.title"
+                    (focus)="nav.launcherIndex.set(i)"
+                    (click)="open(app.id)"
+                  >
+                    <span class="app-icon" [style.--icon-color]="app.tone" aria-hidden="true">{{
+                      app.icon
+                    }}</span
+                    ><span>{{ app.title }}</span>
+                    @if (app.id === 'messages' && unread()) {
+                      <i class="unread-dot" aria-label="Unread messages"></i>
+                    }
+                  </button>
+                }
+              </div>
+              <p class="home-footer">LOCAL BY NATURE. YOURS BY DESIGN.</p>
+            </div>
+          } @else {
+            <div class="application app-viewport" [attr.aria-label]="title">
+              <div class="app-heading">
+                <span class="eyebrow">FEATURE OS</span>
+                <h2>{{ title }}</h2>
+              </div>
+              @if (appLoading()) {
+                <p role="status" class="empty">Opening {{ title }}…</p>
+              }
+              @if (appError()) {
+                <p class="error">{{ appError() }}</p>
+                <button (click)="retry()">Retry</button>
+              }
+              <ng-container *ngComponentOutlet="component()"></ng-container>
+            </div>
+          }
+          <div class="softkeys" aria-label="Soft keys">
+            <button (pointerdown)="$event.preventDefault()" (click)="press('soft-left')">
+              {{ showNotifications() ? 'Close' : left.label }}</button
+            ><button (pointerdown)="$event.preventDefault()" (click)="press('center')">
+              {{ center.label }}</button
+            ><button (pointerdown)="$event.preventDefault()" (click)="press('soft-right')">
+              {{ showNotifications() ? 'Back' : right.label }}
+            </button>
+          </div>
+        }
+        <div *ngIf="os.message()" class="toast" role="status" aria-live="polite">
+          {{ os.message() }}
+        </div>
+        @if (os.confirmation(); as confirmation) {
+          <div class="modal-shade">
+            <section
+              class="confirm-dialog stack"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="confirmation-title"
+            >
+              <h2 id="confirmation-title">Please confirm</h2>
+              <p>{{ confirmation.text }}</p>
+              <div class="actions">
+                <button (click)="os.answer(false)">Cancel</button
+                ><button class="danger" (click)="os.answer(true)">Confirm</button>
+              </div>
+            </section>
+          </div>
+        }
+        @if (os.ringing(); as ringing) {
+          <div class="modal-shade">
+            <section
+              class="ringing-dialog stack"
+              role="alertdialog"
+              aria-modal="true"
+              aria-label="Alarm ringing"
+            >
+              <span class="ring-icon">◷</span>
+              <h2>{{ ringing.label }}</h2>
+              <p>Alarm · keep the browser open</p>
+              <div class="actions">
+                <button (click)="os.snooze()">Snooze 5 min</button
+                ><button (click)="os.stopAlarm()">Stop</button>
+              </div>
+            </section>
+          </div>
+        }
+      </div>
+      <div class="device-name">FEATURE<span>OS</span><i></i></div>
+      <div class="hardware" aria-label="Phone keypad" (pointerdown)="$event.preventDefault()">
+        <div class="navigation-keys">
+          <div class="key-pair">
+            <button
+              class="physical soft-physical"
+              aria-label="Left soft key"
+              (click)="press('soft-left')"
+            >
+              ―</button
+            ><button class="physical call" aria-label="Call key" (click)="press('call')">↗</button>
+          </div>
+          <div class="dpad" aria-label="Directional pad">
+            <button class="up" aria-label="D-pad up" (click)="press('up')">▴</button
+            ><button class="left" aria-label="D-pad left" (click)="press('left')">◂</button
+            ><button class="center" aria-label="D-pad center" (click)="press('center')">●</button
+            ><button class="right" aria-label="D-pad right" (click)="press('right')">▸</button
+            ><button class="down" aria-label="D-pad down" (click)="press('down')">▾</button>
+          </div>
+          <div class="key-pair">
+            <button
+              class="physical soft-physical"
+              aria-label="Right soft key"
+              (click)="press('soft-right')"
+            >
+              ―</button
+            ><button class="physical end" aria-label="End / home key" (click)="press('end')">
+              ⌁
+            </button>
+          </div>
+        </div>
+        <div class="number-keys">
+          @for (key of keys; track key.key) {
+            <button
+              class="physical number"
+              [attr.aria-label]="'Key ' + key.digit + ' ' + key.letters"
+              (click)="press(key.key)"
+            >
+              <span>{{ key.digit }}</span
+              ><small>{{ key.letters }}</small>
+            </button>
+          }
+        </div>
+      </div>
+      <div class="device-bottom"><span></span><i></i><span></span></div>
+    </div>
+    <span class="stage-caption">DESIGNED TO DO JUST ENOUGH.</span>
+  </section>
+  <aside class="guide">
+    <span class="eyebrow">A FAMILIAR FEELING</span>
+    <h2>Go on.<br />Press a button.</h2>
+    <p>Click the keypad, use your keyboard,<br />or tap the screen. It’s all connected.</p>
+    <dl>
+      <div>
+        <dt>↑ ↓ ← →</dt>
+        <dd>Move around</dd>
+      </div>
+      <div>
+        <dt>ENTER</dt>
+        <dd>Select</dd>
+      </div>
+      <div>
+        <dt>Q / E</dt>
+        <dd>Left / right soft key</dd>
+      </div>
+      <div>
+        <dt>ESC / H</dt>
+        <dd>Back to home</dd>
+      </div>
+    </dl>
+    <p class="guide-footnote">
+      Type normally in any text field.<br />F1 / F2 access soft keys while editing.
+    </p>
+    <div class="offline-badge">
+      <i></i>{{ pwa.offlineReady() ? 'READY FOR LIFE OFFLINE' : 'LOCAL-FIRST. ALWAYS PRIVATE.' }}
+    </div>
+  </aside>
+  <footer class="workbench-footer">
+    <span>BUILT FOR SMALL MOMENTS.</span><span>NO ACCOUNT. NO FEED. JUST YOU.</span
+    ><button *ngIf="pwa.updateReady()" (click)="pwa.reload()">Update ready ↗</button>
+  </footer>
+</main>

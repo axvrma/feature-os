@@ -1,0 +1,144 @@
+:host {
+  display: block;
+  min-height: 100%;
+}
+.comm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+.tabs,
+.actions,
+.row {
+  display: flex;
+  gap: 0.35rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.tabs button {
+  flex: 1;
+}
+.muted {
+  opacity: 0.75;
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+.notice {
+  border: 1px solid currentColor;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  font-size: 0.76rem;
+  line-height: 1.45;
+}
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.list > button {
+  text-align: left;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  width: 100%;
+}
+.list > button span {
+  flex: 1;
+  min-width: 0;
+}
+.list strong,
+.list small {
+  display: block;
+  overflow-wrap: anywhere;
+}
+.list small {
+  opacity: 0.75;
+  font-size: 0.72rem;
+  margin-top: 0.15rem;
+}
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.8rem;
+}
+.check {
+  flex-direction: row;
+  align-items: center;
+}
+.check input {
+  width: auto;
+}
+.error {
+  color: var(--danger, #ac273b);
+  font-size: 0.8rem;
+}
+.empty {
+  padding: 1.2rem 0.5rem;
+  text-align: center;
+  font-size: 0.83rem;
+  opacity: 0.75;
+}
+.detail {
+  text-align: center;
+  padding: 0.75rem 0;
+}
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  margin: 0 auto 0.6rem;
+  border-radius: 50%;
+  background: var(--accent, #456c55);
+  color: var(--on-accent, #fff);
+  font-size: 1.5rem;
+}
+.number {
+  font-size: 1.5rem;
+  letter-spacing: 0.06em;
+  text-align: center;
+}
+.call-state {
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  margin: 0.75rem 0;
+}
+.bubble {
+  padding: 0.65rem;
+  border-radius: 0.75rem 0.75rem 0.75rem 0.12rem;
+  background: var(--card, rgba(128, 128, 128, 0.12));
+  margin-right: 1.2rem;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+  font-size: 0.86rem;
+}
+.bubble.mine {
+  margin-left: 1.2rem;
+  margin-right: 0;
+  border-radius: 0.75rem 0.75rem 0.12rem 0.75rem;
+  background: var(--accent-soft, rgba(80, 150, 100, 0.18));
+}
+.bubble p {
+  margin: 0 0 0.3rem;
+}
+.bubble small {
+  font-size: 0.65rem;
+  opacity: 0.75;
+}
+.bubble button {
+  float: right;
+  font-size: 0.65rem;
+  min-height: 1.5rem;
+  padding: 0.15rem 0.3rem;
+}
+.unread {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--accent, #237f4b);
+}
+.import {
+  font-size: 0.75rem;
+}

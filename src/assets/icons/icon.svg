@@ -1,9 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="112" fill="#0f172a"/>
-  <rect x="126" y="44" width="260" height="424" rx="42" fill="#1f2937"/>
-  <rect x="154" y="86" width="204" height="230" rx="24" fill="#67e8f9"/>
-  <circle cx="256" cy="388" r="46" fill="#14b8a6"/>
-  <circle cx="194" cy="346" r="20" fill="#e5e7eb"/>
-  <circle cx="318" cy="346" r="20" fill="#e5e7eb"/>
-  <path d="M209 148h94v28h-94zM209 204h70v28h-70z" fill="#0f172a"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="Feature OS phone icon">
+  <rect width="512" height="512" rx="100" fill="#203d38"/>
+  <rect x="160" y="90" width="192" height="332" rx="36" fill="#eae4d7"/>
+  <rect x="230" y="116" width="52" height="6" rx="3" fill="#81968b"/>
+  <rect x="184" y="145" width="144" height="136" rx="14" fill="#416d5d"/>
+  <circle cx="285" cy="181" r="17" fill="#edc986"/>
+  <path d="M184 244 226 203 274 246 303 220 328 245V267Q328 281 314 281H198Q184 281 184 267Z" fill="#a9b891"/>
+  <rect x="204" y="304" width="24" height="14" rx="7" fill="#81968b"/>
+  <rect x="244" y="299" width="24" height="24" rx="9" fill="#416d5d"/>
+  <rect x="284" y="304" width="24" height="14" rx="7" fill="#81968b"/>
+  <g fill="#81968b">
+    <rect x="204" y="340" width="24" height="12" rx="5"/><rect x="244" y="340" width="24" height="12" rx="5"/><rect x="284" y="340" width="24" height="12" rx="5"/>
+    <rect x="204" y="363" width="24" height="12" rx="5"/><rect x="244" y="363" width="24" height="12" rx="5"/><rect x="284" y="363" width="24" height="12" rx="5"/>
+    <rect x="204" y="386" width="24" height="12" rx="5"/><rect x="244" y="386" width="24" height="12" rx="5"/><rect x="284" y="386" width="24" height="12" rx="5"/>
+  </g>
 </svg>
