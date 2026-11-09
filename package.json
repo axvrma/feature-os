@@ -1,12 +1,22 @@
 {
   "name": "ng-os",
-  "version": "0.0.0",
+  "version": "2.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "lint": "eslint src e2e scripts playwright.config.ts eslint.config.mjs",
+    "typecheck": "tsc -p tsconfig.app.json --noEmit && tsc -p tsconfig.spec.json --noEmit && tsc -p tsconfig.e2e.json --noEmit",
+    "format": "prettier --write src docs e2e scripts .github *.json *.mjs *.ts README.md",
+    "format:check": "prettier --check src docs e2e scripts .github *.json *.mjs *.ts README.md",
+    "test:unit": "ng test --watch=false --browsers=ChromeHeadless",
+    "serve:production": "node scripts/serve-production.mjs",
+    "test:e2e": "playwright test",
+    "test:e2e:webkit": "PW_WEBKIT=1 playwright test --project=mobile-webkit",
+    "check": "npm run lint && npm run format:check && npm run typecheck && npm run test:unit && npm run build",
+    "serve:e2e": "node scripts/serve-production.mjs --e2e"
   },
   "private": true,
   "engines": {
@@ -32,13 +42,22 @@
     "@angular-devkit/build-angular": "^22.0.5",
     "@angular/cli": "^22.0.5",
     "@angular/compiler-cli": "^22.0.5",
+    "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.65.0",
     "@types/jasmine": "~4.3.0",
+    "eslint": "^10.14.0",
+    "globals": "^17.14.0",
     "jasmine-core": "~4.6.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
-    "typescript": "~6.0.0"
+    "prettier": "^3.9.10",
+    "typescript": "~6.0.0",
+    "typescript-eslint": "^8.72.2"
+  },
+  "overrides": {
+    "minimatch@>=7 <11.0.1": "^11.0.5"
   }
 }

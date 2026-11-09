@@ -1,134 +1,270 @@
-@use '@angular/material' as mat;
-
+* {
+  box-sizing: border-box;
+}
 html,
 body {
-  height: 100%;
-}
-
-html {
-  @include mat.theme((
-    color: (
-      primary: mat.$rose-palette,
-      tertiary: mat.$red-palette,
-      theme-type: color-scheme,
-    ),
-    typography: Roboto,
-    density: 0,
-  ));
-}
-
-body {
+  min-height: 100%;
   margin: 0;
-  color-scheme: light;
-  background-color: var(--mat-sys-surface);
-  color: var(--mat-sys-on-surface);
-  font: var(--mat-sys-body-medium);
 }
-
+body {
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
+  background: #eeeae1;
+}
 button,
 input,
-textarea {
-  font-family: inherit;
+textarea,
+select {
+  font: inherit;
 }
-
-body[data-theme='dark'] {
-  color-scheme: dark;
-  background-color: var(--mat-sys-surface);
-  color: var(--mat-sys-on-surface);
+button,
+a,
+input,
+textarea,
+select {
+  touch-action: manipulation;
 }
-
-body[data-color-theme='cherry'] {
-  @include mat.theme-overrides((
-    primary: #ba005c,
-    on-primary: #ffffff,
-    primary-container: #ffd9e2,
-    on-primary-container: #3f001b,
-    tertiary: #b3261e,
-    on-tertiary: #ffffff,
-    tertiary-container: #ffdad4,
-    on-tertiary-container: #410001,
-  ));
+button {
+  cursor: pointer;
 }
-
-body[data-color-theme='azure'] {
-  @include mat.theme-overrides((
-    primary: #005cbb,
-    on-primary: #ffffff,
-    primary-container: #d7e3ff,
-    on-primary-container: #001b3f,
-    tertiary: #006a6a,
-    on-tertiary: #ffffff,
-    tertiary-container: #9cf1f0,
-    on-tertiary-container: #002020,
-  ));
+button:disabled {
+  opacity: 0.5;
+  cursor: default;
 }
-
-body[data-color-theme='violet'] {
-  @include mat.theme-overrides((
-    primary: #7b1fa2,
-    on-primary: #ffffff,
-    primary-container: #f3daff,
-    on-primary-container: #2d004d,
-    tertiary: #6750a4,
-    on-tertiary: #ffffff,
-    tertiary-container: #e9ddff,
-    on-tertiary-container: #22005d,
-  ));
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--accent, #426957);
+  outline-offset: 2px;
 }
-
-body[data-color-theme='green'] {
-  @include mat.theme-overrides((
-    primary: #006d3c,
-    on-primary: #ffffff,
-    primary-container: #b7f7cb,
-    on-primary-container: #00210f,
-    tertiary: #38656a,
-    on-tertiary: #ffffff,
-    tertiary-container: #bcebf0,
-    on-tertiary-container: #002023,
-  ));
+.screen button,
+.screen input,
+.screen textarea,
+.screen select {
+  max-width: 100%;
+  min-width: 0;
 }
-
-body[data-theme='contrast'] {
-  color-scheme: dark;
-  background-color: #000;
-  color: #fff;
-
-  @include mat.theme-overrides((
-    primary: #ffff00,
-    on-primary: #000,
-    primary-container: #333300,
-    on-primary-container: #ffffcc,
-    surface: #000,
-    on-surface: #fff,
-    surface-container-low: #0b0b0b,
-    surface-container: #161616,
-    surface-container-high: #222,
-    on-surface-variant: #f2f2f2,
-    outline: #fff,
-    outline-variant: #a8a8a8,
-  ));
+.screen button:not(.app-tile):not(.softkeys button):not(.notification-indicator) {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--screen-fg);
+  border-radius: 6px;
+  padding: 8px 10px;
+  min-height: 34px;
+  font-size: 11px;
+  text-align: center;
 }
-
-body[data-theme='classic'] {
-  color-scheme: light;
-  background-color: #d9f99d;
-  color: #102313;
-
-  @include mat.theme-overrides((
-    primary: #006d3c,
-    on-primary: #fff,
-    primary-container: #b7f7cb,
-    on-primary-container: #00210f,
-    tertiary: #38656a,
-    on-tertiary: #fff,
-    surface: #f8ffe8,
-    on-surface: #102313,
-    surface-container-low: #eff8db,
-    surface-container: #e7f0d3,
-    surface-container-high: #dfe9cb,
-    on-surface-variant: #3f4a38,
-    outline: #6f7a68,
-    outline-variant: #c0cbb8,
-  ));
+.screen button:hover {
+  filter: brightness(0.97);
+}
+.screen button:disabled {
+  filter: grayscale(1);
+}
+.screen a {
+  color: var(--accent);
+  overflow-wrap: anywhere;
+}
+.screen input:not([type='checkbox']):not([type='radio']):not([type='range']):not([type='file']),
+.screen textarea,
+.screen select {
+  width: 100%;
+  border: 1px solid var(--line);
+  background: var(--screen-bg);
+  color: var(--screen-fg);
+  border-radius: 5px;
+  padding: 8px;
+  font-size: 12px;
+  min-height: 34px;
+}
+.screen input[type='checkbox'] {
+  accent-color: var(--accent);
+  min-width: 18px;
+  min-height: 18px;
+}
+.screen input[type='range'] {
+  width: 100%;
+  accent-color: var(--accent);
+}
+.screen label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 10px;
+  color: var(--muted);
+}
+.screen .check {
+  flex-direction: row;
+  align-items: center;
+  gap: 7px;
+}
+.screen textarea {
+  resize: vertical;
+  min-height: 75px;
+}
+.screen h3 {
+  font-size: 13px;
+  margin: 0 0 3px;
+  letter-spacing: -0.2px;
+}
+.screen p {
+  margin: 0 0 5px;
+  overflow-wrap: anywhere;
+}
+.screen small {
+  font-size: 9px;
+  color: var(--muted);
+}
+.screen .stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.screen .row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  text-align: left !important;
+  flex-wrap: wrap;
+  overflow-wrap: anywhere;
+}
+.screen .row strong {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.screen .row small {
+  font-size: 9px;
+  display: block;
+}
+.screen .row span {
+  flex: none;
+}
+.screen .card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  padding: 10px;
+  overflow-wrap: anywhere;
+}
+.screen .actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+.screen .actions > * {
+  flex: 1;
+  min-width: 60px;
+}
+.screen .selected,
+.screen .active {
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+.screen .hint {
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.6;
+}
+.screen .empty {
+  padding: 20px 10px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.6;
+}
+.screen .danger,
+.screen .error {
+  color: var(--danger) !important;
+}
+.screen .error {
+  padding: 8px;
+  border: 1px solid currentColor;
+  border-radius: 5px;
+  font-size: 10px;
+}
+.screen .badge {
+  padding: 3px 6px;
+  background: var(--soft);
+  color: var(--accent);
+  border-radius: 4px;
+  font-size: 8px;
+  display: inline-block;
+}
+.screen .file-button {
+  background: var(--soft);
+  color: var(--accent);
+  border: 1px solid var(--line);
+  padding: 9px;
+  border-radius: 5px;
+}
+.screen .file-button input {
+  font-size: 9px;
+  width: 100%;
+}
+.screen audio {
+  max-width: 100%;
+  width: 100%;
+  height: 34px;
+}
+.screen img,
+.screen canvas {
+  max-width: 100%;
+  height: auto;
+}
+.screen pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-size: 10px;
+}
+.screen hr {
+  border: 0;
+  border-top: 1px solid var(--line);
+  width: 100%;
+}
+.screen table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.screen th,
+.screen td {
+  font-size: 10px;
+  text-align: center;
+  padding: 2px;
+}
+.screen .large-text {
+  font-size: 15px;
+}
+.large-text .screen :is(input, textarea, select, button:not(.app-tile)) {
+  font-size: 13px;
+}
+.large-text .screen .hint,
+.large-text .screen small {
+  font-size: 11px;
+}
+[hidden] {
+  display: none !important;
+}
+@media (max-width: 680px) {
+  .screen button:not(.app-tile):not(.softkeys button):not(.notification-indicator) {
+    min-height: 38px;
+  }
+  .screen .app-grid .app-tile {
+    min-height: 66px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
 }

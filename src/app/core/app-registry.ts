@@ -1,13 +1,16 @@
 import { OsAppDefinition } from './os-models';
-
-export const OS_APPS: OsAppDefinition[] = [
-  { id: 'dialer', title: 'Phone', icon: 'call', tone: '#0ea5e9' },
-  { id: 'contacts', title: 'Contacts', icon: 'contacts', tone: '#10b981' },
-  { id: 'messages', title: 'Messages', icon: 'sms', tone: '#8b5cf6' },
-  { id: 'clock', title: 'Clock', icon: 'alarm', tone: '#f59e0b' },
-  { id: 'notes', title: 'Notes', icon: 'sticky_note_2', tone: '#eab308' },
-  { id: 'music', title: 'Music', icon: 'music_note', tone: '#ec4899' },
-  { id: 'snake', title: 'Snake', icon: 'sports_esports', tone: '#22c55e' },
-  { id: 'profiles', title: 'Profiles', icon: 'volume_up', tone: '#64748b' },
-  { id: 'settings', title: 'Settings', icon: 'settings', tone: '#14b8a6' },
+export const OS_APPS: readonly OsAppDefinition[] = [
+  { id: 'dialer', title: 'Phone', icon: '↗', tone: '#34856b' },
+  { id: 'contacts', title: 'Contacts', icon: '♙', tone: '#d09648' },
+  { id: 'messages', title: 'Messages', icon: '▤', tone: '#628bb2' },
+  { id: 'clock', title: 'Clock', icon: '◷', tone: '#a080b5' },
+  { id: 'calculator', title: 'Calculator', icon: '±', tone: '#778b98' },
+  { id: 'calendar', title: 'Calendar', icon: '▦', tone: '#bd725b' },
+  { id: 'notes', title: 'Notes', icon: '≡', tone: '#bc9a4f' },
+  { id: 'music', title: 'Music', icon: '♫', tone: '#b67d91' },
+  { id: 'snake', title: 'Snake', icon: '⌁', tone: '#77a275' },
+  { id: 'gallery', title: 'Gallery', icon: '▧', tone: '#569b9a' },
+  { id: 'files', title: 'Files', icon: '▱', tone: '#9a8c70' },
+  { id: 'profiles', title: 'Profiles', icon: '♬', tone: '#7d8aa5' },
+  { id: 'settings', title: 'Settings', icon: '⚙', tone: '#8b9294' },
 ];
